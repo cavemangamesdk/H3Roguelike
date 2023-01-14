@@ -122,7 +122,7 @@ internal class TestGameMSN : IGame
 
         Player = player; //orc;
 
-        Selector.AddEntities(Player.CreaturesWithinPerceptionRange);
+        //Selector.AddEntities(Player.CreaturesWithinPerceptionRange); // TODO: What is this for?
 
         _scene.SceneCamera = new Camera(Player, new Vector2((window.Width - StatsPanel.WIDTH) / 2.0f, (window.Height - consoleSize.Y) / 2.0f));
 

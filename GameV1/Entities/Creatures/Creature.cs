@@ -18,7 +18,8 @@ namespace GameV1.Entities.Creatures
         public ICreatureInventory Inventory { get; set; }
         public IEnumerable<ICreatureSpecies> EnemySpecies { get; set; }
         public IEnumerable<ICreature> EnemyCreatures { get; set; }
-        public IDictionary<Vector2, ICreature> CreaturesWithinPerceptionRange { get; set; }
+        //public IDictionary<Vector2, ICreature> CreaturesWithinPerceptionRange { get; set; }
+        public IList<Vector2> CreaturesWithinPerceptionRange { get; set; }
         public ICreature? TargetCreature { get; set; }
         public IItem? TargetItem { get; set; }
         public IBehaviorTree? BehaviorTree { get; set; }
@@ -30,8 +31,9 @@ namespace GameV1.Entities.Creatures
             ICreatureStats stats, 
             ICreatureInventory inventory, 
             IEnumerable<ICreatureSpecies> enemySpecies, 
-            IEnumerable<ICreature> enemyCreatures, 
-            IDictionary<Vector2, ICreature> creaturesWithinPerceptionRange, 
+            IEnumerable<ICreature> enemyCreatures,
+            //IDictionary<Vector2, ICreature> creaturesWithinPerceptionRange,
+            IList<Vector2> creaturesWithinPerceptionRange,
             ICreature? targetCreature, 
             IItem? targetItem, 
             IBehaviorTree? behaviorTree)
@@ -56,7 +58,8 @@ namespace GameV1.Entities.Creatures
             Inventory = new CreatureInventory(new MeleeWeapon(0, 0, "Fist", new Coords2D(), Color.White), new Container(ContainerType.Inventory, 10, "Inventory"));
             EnemySpecies = new List<ICreatureSpecies>();
             EnemyCreatures = new List<ICreature>();
-            CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            //CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            CreaturesWithinPerceptionRange = new List<Vector2>();
         }
 
         public Creature(string name, int health, Coords2D spriteCoords, Color colorTint) : base(name, spriteCoords, colorTint)
@@ -67,7 +70,8 @@ namespace GameV1.Entities.Creatures
             Inventory = new CreatureInventory(new MeleeWeapon(0, 0, "Fist", new Coords2D(), Color.White), new Container(ContainerType.Inventory, 10, "Inventory"));
             EnemySpecies = new List<ICreatureSpecies>();
             EnemyCreatures = new List<ICreature>();
-            CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            //CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            CreaturesWithinPerceptionRange = new List<Vector2>();
 
             Stats.Health = health;
         }
@@ -80,7 +84,8 @@ namespace GameV1.Entities.Creatures
             Inventory = new CreatureInventory(new MeleeWeapon(0, 0, "Fist", new Coords2D(), Color.White), new Container(ContainerType.Inventory, 10, "Inventory"));
             EnemySpecies = new List<ICreatureSpecies>();
             EnemyCreatures = new List<ICreature>();
-            CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            //CreaturesWithinPerceptionRange = new Dictionary<Vector2, ICreature>();
+            CreaturesWithinPerceptionRange = new List<Vector2>();
 
             Stats.Health = health;
         }

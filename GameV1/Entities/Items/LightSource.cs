@@ -2,6 +2,7 @@
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
 using MooseEngine.Utilities;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace GameV1.Entities.Items
@@ -64,15 +65,25 @@ namespace GameV1.Entities.Items
                 var entities = scene.EntityLayers[layer].ActiveEntities;
 
                 //var entitiesWithinRange = scene.GetEntitiesWithinCircle(entities, this.Position, this.Range);
-                var entitiesWithinRange = scene.GetEntitiesWithinRectangle(
-                    entities,
+                //var entitiesWithinRange = scene.GetEntitiesWithinRectangle(
+                //    entities,
+                //    Position - new Vector2(Range, Range),
+                //    Position + new Vector2(Range, Range));
+
+                var entityPositionsWithinRange = scene.GetEntityPositionsWithinRectangle(
+                    entities, 
                     Position - new Vector2(Range, Range),
                     Position + new Vector2(Range, Range));
 
-                foreach (var entity in entitiesWithinRange)
+                foreach (var entityPostition in entityPositionsWithinRange)
                 {
-                    entity.Value.ColorTint += Tints[entity.Key - Position];
+                    entities[entityPostition].ColorTint += Tints[entityPostition - Position];
                 }
+
+                //foreach (var entity in entitiesWithinRange)
+                //{
+                //    entity.Value.ColorTint += Tints[entity.Key - Position];
+                //}
 
                 //foreach(var tint in Tints)
                 //{

@@ -37,7 +37,7 @@ enum GameState
 
 internal class RogueliteGame : IGame
 {
-    private GameState _gameState = GameState.Menu;
+    private GameState _gameState = GameState.Game;// GameState.Menu;
 
     private ISceneFactory? _sceneFactory;
     private IScene? _menuScene;
@@ -113,7 +113,7 @@ internal class RogueliteGame : IGame
 
         _gameUI.SetPlayerName(_player.Name);
 
-        _selector.AddEntities(_player.CreaturesWithinPerceptionRange);
+        //_selector.AddEntities(_player.CreaturesWithinPerceptionRange); // TODO: What is this for?
     }
 
     private void BackToMenuButtonClicked()
@@ -323,7 +323,7 @@ internal class RogueliteGame : IGame
                 144 + Randomizer.RandomInt(-16, 16),
                 128 + Randomizer.RandomInt(-16, 16), 255);
             var light = new LightSource(Randomizer.RandomInt(4, 8) * Constants.DEFAULT_ENTITY_SIZE, color, 1000, 100, "Camp fire", new Coords2D(8, 8), Color.White);
-            light.Position = WorldGenerator._structurePositions[i] + new Vector2((3 * Constants.DEFAULT_ENTITY_SIZE), (3 * Constants.DEFAULT_ENTITY_SIZE));
+            light.Position = WorldGenerator._structurePositions[i] + new Vector2(3, 3) * Constants.DEFAULT_ENTITY_SIZE;
             //itemLayer?.Add(light);
             scene.TryPlaceEntity((int)EntityLayer.Items, light, light.Position, (int)EntityLayer.Creatures, (int)EntityLayer.NonWalkableTiles);
         }
@@ -331,7 +331,14 @@ internal class RogueliteGame : IGame
         // Add Orcs with behavior to campsites
         for (int i = 0; i < WorldGenerator._structurePositions.Count; i++)
         {
-            var campDwellingOrc = CreatureFactory.CreateCreature<Creature>(scene, (int)EntityLayer.Creatures, CreatureSpecies.Orc, "Orc", new Coords2D(18, 2), WorldGenerator._structurePositions[i] + new Vector2(5, 5) * Constants.DEFAULT_ENTITY_SIZE, (int)EntityLayer.NonWalkableTiles);
+            var campDwellingOrc = CreatureFactory.CreateCreature<Creature>(
+                scene, 
+                (int)EntityLayer.Creatures, 
+                CreatureSpecies.Orc,
+                "Orc", 
+                new Coords2D(18, 2), 
+                WorldGenerator._structurePositions[i] + new Vector2(3, 3) * Constants.DEFAULT_ENTITY_SIZE, 
+                (int)EntityLayer.NonWalkableTiles);
 
             campDwellingOrc.Stats.Perception = Randomizer.RandomInt(3, 6) * Constants.DEFAULT_ENTITY_SIZE;
             campDwellingOrc.Inventory.PrimaryWeapon.Add(new MeleeWeapon(100, 10, "Sword", new Coords2D(6, 4), Color.White));
@@ -347,17 +354,17 @@ internal class RogueliteGame : IGame
                     Action(new MoveToTargetCreature(scene, campDwellingOrc)),
                     Action(new AttackTarget(scene, campDwellingOrc))
                 ),
-                //Serializer(
-                //    Action(new SearchForItemsInRange(scene, campDwellingOrc)),
-                //    Action(new MoveToTargetItem(scene, campDwellingOrc)),
-                //    Action(new PickUpItem(scene, campDwellingOrc)),
-                //    Action(new AutoEquip(scene, campDwellingOrc))
-                //),
+                Serializer(
+                    Action(new SearchForItemsInRange(scene, campDwellingOrc)),
+                    Action(new MoveToTargetItem(scene, campDwellingOrc)),
+                    Action(new PickUpItem(scene, campDwellingOrc)),
+                    Action(new AutoEquip(scene, campDwellingOrc))
+                ),
                 Action(new PatrolRectangularArea(
                         scene,
                         campDwellingOrc,
-                        WorldGenerator._structurePositions[i] + new Vector2(-patrolRange, -patrolRange) * Constants.DEFAULT_ENTITY_SIZE,
-                        WorldGenerator._structurePositions[i] + new Vector2(patrolRange, patrolRange) * Constants.DEFAULT_ENTITY_SIZE)
+                        campDwellingOrc.Position - new Vector2(patrolRange, patrolRange) * Constants.DEFAULT_ENTITY_SIZE,
+                        campDwellingOrc.Position + new Vector2(patrolRange, patrolRange) * Constants.DEFAULT_ENTITY_SIZE)
                 )
             );
 

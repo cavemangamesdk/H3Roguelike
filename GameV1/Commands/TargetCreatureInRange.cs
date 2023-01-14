@@ -1,7 +1,9 @@
 ﻿using GameV1.Interfaces.Creatures;
+using GameV1.Interfaces.Items;
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
+using System.Numerics;
 
 namespace GameV1.Commands
 {
@@ -19,7 +21,7 @@ namespace GameV1.Commands
         public override NodeStates Execute()
         {
             var creatureLayer = Scene.GetLayer((int)EntityLayer.Creatures).ActiveEntities;
-            var creaturesInRange = Scene.GetEntitiesWithinCircle(creatureLayer, Creature.Position, Creature.Stats.Perception);
+            var creaturesInRange = Scene.GetEntityPositionsWithinCircle(creatureLayer, Creature.Position, Creature.Stats.Perception);
 
             if (creaturesInRange is null) 
             { 
@@ -27,7 +29,7 @@ namespace GameV1.Commands
             }
 
             // Remove self
-            if (creaturesInRange.ContainsKey(Creature.Position))
+            if (creaturesInRange.Contains(Creature.Position))
             {
                 creaturesInRange.Remove(Creature.Position);
             }
@@ -42,9 +44,13 @@ namespace GameV1.Commands
             }
             else
             {
-                Creature.TargetCreature = (ICreature?)creaturesInRange.Values.FirstOrDefault();
+                //Creature.TargetCreature = (ICreature?)creaturesInRange.Values.FirstOrDefault();
+                //var closestItem = creaturesInRange.OrderBy(item => Vector2.Distance(Creature.Position, item)).FirstOrDefault();
+                var closestItem = creaturesInRange.FirstOrDefault();
 
-               // Console.WriteLine($"TargetCreaturesWithinRange found {Creature?.TargetCreature?.Name}");
+                Creature.TargetCreature = (ICreature?)creatureLayer[closestItem];
+
+                // Console.WriteLine($"TargetCreaturesWithinRange found {Creature?.TargetCreature?.Name}");
 
                 return NodeStates.Success;
             }

@@ -2,6 +2,7 @@
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
+using MooseEngine.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,26 +17,34 @@ namespace GameV1.Commands
         public IScene Scene { get; set; }
         public ICreature Creature { get; set; }
 
-        public IDictionary<Vector2, ICreature>? CreaturesInRange { get; set; }
+        //public IDictionary<Vector2, ICreature>? CreaturesInRange { get; set; }
+        public IList<Vector2>? CreaturesInRange { get; set; }
 
         public InspectCreaturesInRange(IScene scene, ICreature creature)
         {
             Scene = scene;
             Creature = creature;
-            CreaturesInRange = new Dictionary<Vector2, ICreature>();
+            CreaturesInRange = new List<Vector2>();
         }
         
         public override NodeStates Execute()
         {
             var creatureLayer = Scene.GetLayer((int)EntityLayer.Creatures).ActiveEntities;
-            
-            CreaturesInRange = Scene.GetEntitiesWithinCircle<ICreature>(creatureLayer, Creature.Position, Creature.Stats.Perception);
+
+            //CreaturesInRange = Scene.GetEntitiesWithinCircle<ICreature>(creatureLayer, Creature.Position, Creature.Stats.Perception);
+
+            Scene.GetEntityPositionsWithinCircle(creatureLayer, Creature.Position, Creature.Stats.Perception);
 
             // null check
-            if(CreaturesInRange is null) { return NodeStates.Failure; }
+            if (CreaturesInRange is null) { return NodeStates.Failure; }
 
             // Remove self
-            if (CreaturesInRange.ContainsKey(Creature.Position))
+            //if (CreaturesInRange.ContainsKey(Creature.Position))
+            //{
+            //    CreaturesInRange.Remove(Creature.Position);
+            //}
+
+            if (CreaturesInRange.Contains(Creature.Position))
             {
                 CreaturesInRange.Remove(Creature.Position);
             }
@@ -54,10 +63,10 @@ namespace GameV1.Commands
 
                // Console.WriteLine($"InspectCreaturesWithinRange found:");
 
-                foreach (var creature in Creature.CreaturesWithinPerceptionRange)
-                {
-                   // Console.WriteLine(creature.Value.Name);
-                }
+                //foreach (var creature in Creature.CreaturesWithinPerceptionRange)
+                //{
+                //   Console.WriteLine(creature.Value.Name);
+                //}
 
                 return NodeStates.Success;
             }

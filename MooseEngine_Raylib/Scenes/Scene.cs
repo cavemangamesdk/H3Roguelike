@@ -4,6 +4,7 @@ using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
 using MooseEngine.Pathfinding;
 using MooseEngine.Utilities;
+using System.Linq;
 using System.Numerics;
 
 namespace MooseEngine.Scenes;
@@ -116,6 +117,13 @@ public class Scene : Disposeable, IScene
         return entities.ElementAt(Randomizer.RandomInt(0, entities.Count - 1)).Key;
     }
 
+    public Vector2 GetRandomValidPositionWithinRectangle(IDictionary<Vector2, IEntity> entities, Vector2 topLeft, Vector2 bottomRight)
+    {
+        var validPositions = entities.Where(x => x.Key.X >= topLeft.X && x.Key.X <= bottomRight.X && x.Key.Y >= topLeft.Y && x.Key.Y <= bottomRight.Y).ToList();
+
+        return validPositions.ElementAt(Randomizer.RandomInt(0, validPositions.Count - 1)).Key;
+    }
+
     public Vector2 GetClosestValidPosition(int entityLayerNum, Vector2 targetPosition, params int[] collisionLayerNums)
     {
         bool searching = true;
@@ -207,33 +215,33 @@ public class Scene : Disposeable, IScene
         return tilesWithinDist;
     }
 
-    //public IList<IEntity>? GetEntitiesWithinCircle(IDictionary<Vector2, IEntity> entities, Coords2D position, int distance)
-    //{
-    //    int distanceSquared = distance * distance;
+    public IList<Vector2>? GetEntityPositionsWithinCircle(IDictionary<Vector2, IEntity> entities, Coords2D position, int distance)
+    {
+        int distanceSquared = distance * distance;
 
-    //    var tilesWithinDist = new List<IEntity>();
+        var tilesWithinDist = new List<Vector2>();
 
-    //    var topLft = new Vector2(position.X - distance, position.Y - distance);
-    //    var btmRgt = new Vector2(position.X + distance, position.Y + distance);
-    //    var v = new Vector2();
+        var topLft = new Vector2(position.X - distance, position.Y - distance);
+        var btmRgt = new Vector2(position.X + distance, position.Y + distance);
 
-    //    for (v.Y = topLft.Y; v.Y <= btmRgt.Y; v.Y += Constants.DEFAULT_ENTITY_SIZE)
-    //    {
-    //        for (v.X = topLft.X; v.X <= btmRgt.X; v.X += Constants.DEFAULT_ENTITY_SIZE)
-    //        {
-    //            if (entities.ContainsKey(v))
-    //            {
-    //                if (MathFunctions.DistanceSquaredBetween(position, v) <= distanceSquared)
-    //                //if (Vector2.DistanceSquared(position, v) <= distanceSquared)
-    //                {
-    //                    tilesWithinDist.Add(entities[v]);
-    //                }
-    //            }
-    //        }
-    //    }
+        for (int y = (int)topLft.Y; y <= btmRgt.Y; y += Constants.DEFAULT_ENTITY_SIZE)
+        {
+            for (int x = (int)topLft.X; x <= btmRgt.X; x += Constants.DEFAULT_ENTITY_SIZE)
+            {
+                var pos = new Vector2(x, y);
+                
+                if (entities.ContainsKey(pos))
+                {
+                    if (MathFunctions.DistanceSquaredBetween(position, pos) <= distanceSquared)
+                    {
+                        tilesWithinDist.Add(pos);
+                    }
+                }
+            }
+        }
 
-    //    return tilesWithinDist;
-    //}
+        return tilesWithinDist;
+    }
 
     public IDictionary<Vector2, IEntity>? GetEntitiesWithinRectangle(IDictionary<Vector2, IEntity> entities, Vector2 topLeft, Vector2 bottomRight)
     {
@@ -266,6 +274,26 @@ public class Scene : Disposeable, IScene
         }
 
         return tilesWithinDist;
+    }
+
+    public IList<Vector2>? GetEntityPositionsWithinRectangle(IDictionary<Vector2, IEntity> entities, Vector2 topLeft, Vector2 bottomRight)
+    {
+        var entityPositions= new List<Vector2>();
+
+        for (int y = (int)topLeft.Y; y < bottomRight.Y; y += Constants.DEFAULT_ENTITY_SIZE)
+        {
+            for (int x = (int)topLeft.X; x < bottomRight.X; x += Constants.DEFAULT_ENTITY_SIZE)
+            {
+                var pos = new Vector2(x, y);
+
+                if (entities.ContainsKey(pos))
+                {
+                    entityPositions.Add(pos);
+                }
+            }
+        }
+
+        return entityPositions;
     }
 
     protected override void DisposeManagedState()

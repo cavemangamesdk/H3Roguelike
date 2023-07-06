@@ -79,7 +79,7 @@ internal class RegisterFormComponent : IUIElement
         _loginButtonOptions = new ButtonOptions(loginButtonPosition, buttonSize, "Login");
         _loginButtonOptions.FontSize = 24;
 
-        _httpRequester = new HttpRequester("http://api.cavemangames.dk/api/Auth/");
+        _httpRequester = new HttpRequester("http://h3roguelite.cavemangames.dk/api/v1/auth/");
     }
 
     public void Reset()

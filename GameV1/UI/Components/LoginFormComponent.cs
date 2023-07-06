@@ -87,7 +87,7 @@ internal class LoginFormComponent
         _registerButtonOptions = new ButtonOptions(registerButtonPosition, buttonSize, "Register");
         _registerButtonOptions.FontSize = 24;
 
-        _httpRequester = new HttpRequester("http://api.cavemangames.dk/api/Auth/");
+        _httpRequester = new HttpRequester("http://h3roguelite.cavemangames.dk/api/v1/auth/");
     }
 
     public void Reset()

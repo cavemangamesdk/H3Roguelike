@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MooseEngine.Abstractions\MooseEngine.Abstractions.csproj" />
     <ProjectReference Include="..\MooseEngine.Extensions.Autofac\MooseEngine.Extensions.Autofac.csproj" />
+    <ProjectReference Include="..\MooseEngine.Platform.Glfw\MooseEngine.Platform.Glfw.csproj" />
   </ItemGroup>
 
 </Project>

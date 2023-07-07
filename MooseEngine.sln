@@ -13,13 +13,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine.Extensions.Auto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine.UnitTesting", "MooseEngine.UnitTesting\MooseEngine.UnitTesting.csproj", "{19125683-AD36-4F0C-B60F-99D7F97DC5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Platform.Glfw", "MooseEngine.Platform.Glfw\MooseEngine.Platform.Glfw.csproj", "{A4B0E5C0-B561-46F5-BDB4-61EE1CE33B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine.Platform.Glfw", "MooseEngine.Platform.Glfw\MooseEngine.Platform.Glfw.csproj", "{A4B0E5C0-B561-46F5-BDB4-61EE1CE33B7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Platform", "MooseEngine.Platform\MooseEngine.Platform.csproj", "{98079A3B-3F18-41F5-A287-D10A35B3EC0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine.Platform", "MooseEngine.Platform\MooseEngine.Platform.csproj", "{98079A3B-3F18-41F5-A287-D10A35B3EC0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MooseEngine", "MooseEngine", "{E6FCBF57-47CE-46C9-BF1D-7198C12F1613}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine", "MooseEngine\MooseEngine.csproj", "{AA9EE8A8-6673-426D-B74F-6DFFD5207751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine", "MooseEngine\MooseEngine.csproj", "{AA9EE8A8-6673-426D-B74F-6DFFD5207751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{0B18BF9F-CE49-4955-BC89-ADFA2967AA3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Abstractions", "MooseEngine.Abstractions\MooseEngine.Abstractions.csproj", "{8EF65F80-650A-4D26-8B59-F68905685822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Graphics.OpenGL", "MooseEngine.Graphics.OpenGL\MooseEngine.Graphics.OpenGL.csproj", "{58D4A6D8-A3BF-42ED-A328-5840C334A79F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Graphics", "MooseEngine.Graphics\MooseEngine.Graphics.csproj", "{8C785F67-18F6-4708-BF2C-58826D16532E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +67,22 @@ Global
 		{AA9EE8A8-6673-426D-B74F-6DFFD5207751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA9EE8A8-6673-426D-B74F-6DFFD5207751}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA9EE8A8-6673-426D-B74F-6DFFD5207751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B18BF9F-CE49-4955-BC89-ADFA2967AA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B18BF9F-CE49-4955-BC89-ADFA2967AA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B18BF9F-CE49-4955-BC89-ADFA2967AA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B18BF9F-CE49-4955-BC89-ADFA2967AA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EF65F80-650A-4D26-8B59-F68905685822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EF65F80-650A-4D26-8B59-F68905685822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EF65F80-650A-4D26-8B59-F68905685822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EF65F80-650A-4D26-8B59-F68905685822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D4A6D8-A3BF-42ED-A328-5840C334A79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D4A6D8-A3BF-42ED-A328-5840C334A79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D4A6D8-A3BF-42ED-A328-5840C334A79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D4A6D8-A3BF-42ED-A328-5840C334A79F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C785F67-18F6-4708-BF2C-58826D16532E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C785F67-18F6-4708-BF2C-58826D16532E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C785F67-18F6-4708-BF2C-58826D16532E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C785F67-18F6-4708-BF2C-58826D16532E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +91,9 @@ Global
 		{A4B0E5C0-B561-46F5-BDB4-61EE1CE33B7E} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 		{98079A3B-3F18-41F5-A287-D10A35B3EC0D} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 		{AA9EE8A8-6673-426D-B74F-6DFFD5207751} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
+		{8EF65F80-650A-4D26-8B59-F68905685822} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
+		{58D4A6D8-A3BF-42ED-A328-5840C334A79F} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
+		{8C785F67-18F6-4708-BF2C-58826D16532E} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03C0BED4-5072-45CD-9F4B-361586F2DED2}

@@ -39,7 +39,7 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
         LayerStack = new List<LayerBase>();
     }
 
-    private IWindow Window { get; }
+    protected IWindow Window { get; }
     private bool IsRunning { get; set; } = true;
     private ICollection<LayerBase> LayerStack { get; set; }
 

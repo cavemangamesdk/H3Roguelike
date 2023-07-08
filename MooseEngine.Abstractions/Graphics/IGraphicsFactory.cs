@@ -5,11 +5,6 @@ public interface IBindable
     void Bind();
 }
 
-public interface IIndexBuffer : IBindable
-{
-    int Count { get; }
-}
-
 public interface IGraphicsFactory
 {
     IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout);
@@ -22,6 +17,8 @@ public interface IGraphicsFactory
 
     IShader CreateShader();
     IShader CreateShader(string filepath);
+
+    IUniformBuffer CreateUniformBuffer(int size, uint binding);
 
     ITexture2D CreateTexture2D(string filepath);
 }

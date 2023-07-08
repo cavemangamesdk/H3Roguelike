@@ -10,6 +10,10 @@ public sealed class GlfwWindow : IWindow
     private Glfw.Delegates.GLFWwindowclosefun? WindowCloseFunc { get; set; }
     private Glfw.Delegates.GLFWwindowsizefun? WindowResizeFunc { get; set; }
 
+    public int Width => 1024;
+
+    public int Height => 768;
+
     public bool ShouldClose => Glfw.WindowShouldClose(GlfwWindowPtr);
 
     public void SetEventCallback(EventCallbackFn eventCallbackFn)

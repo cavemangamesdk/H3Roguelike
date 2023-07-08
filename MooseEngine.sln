@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MooseEngine.Graphics", "Moo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Extensions.SixLabors.ImageSharp", "MooseEngine.Extensions.SixLabors.ImageSharp\MooseEngine.Extensions.SixLabors.ImageSharp.csproj", "{449CAD08-AB14-4FDB-9A53-C412570DAD77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooseEngine.Mathematics", "MooseEngine.Mathematics\MooseEngine.Mathematics.csproj", "{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{449CAD08-AB14-4FDB-9A53-C412570DAD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{449CAD08-AB14-4FDB-9A53-C412570DAD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{449CAD08-AB14-4FDB-9A53-C412570DAD77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +106,7 @@ Global
 		{8EF65F80-650A-4D26-8B59-F68905685822} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 		{58D4A6D8-A3BF-42ED-A328-5840C334A79F} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 		{8C785F67-18F6-4708-BF2C-58826D16532E} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
+		{E9A0541F-0B24-4D98-83FA-8BB3DA907E1B} = {E6FCBF57-47CE-46C9-BF1D-7198C12F1613}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03C0BED4-5072-45CD-9F4B-361586F2DED2}

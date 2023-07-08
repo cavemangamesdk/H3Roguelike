@@ -4,5 +4,5 @@ public interface IRenderer
 {
     void Clear();
 
-    void DrawGeometry(IPipeline pipeline, IVertexBuffer vertexBuffer);
+    void DrawGeometry(IPipeline? pipeline, IVertexBuffer? vertexBuffer);
 }

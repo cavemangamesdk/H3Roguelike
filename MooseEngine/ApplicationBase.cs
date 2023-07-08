@@ -2,6 +2,20 @@
 
 namespace MooseEngine;
 
+public abstract class LayerBase
+{
+    public LayerBase(string debugName)
+    {
+        DebugName = debugName;
+    }
+
+    private string DebugName { get; }
+
+    public abstract void OnAttach();
+    public abstract void OnDetach();
+    public abstract void Update(float deltaTime);
+}
+
 public interface IApplication
 {
 }
@@ -14,16 +28,21 @@ internal interface IExecutableApplication : IDisposable
 
 public abstract class ApplicationBase : IApplication, IExecutableApplication
 {
-    public ApplicationBase(IWindow window, IRenderer renderer, IGraphicsFactory graphicsFactory)
+    public ApplicationBase(IWindow window)
     {
         Window = window;
-        Renderer = renderer;
-        GraphicsFactory = graphicsFactory;
+
+        LayerStack = new List<LayerBase>();
     }
 
     private IWindow Window { get; }
-    private IRenderer Renderer { get; }
-    private IGraphicsFactory GraphicsFactory { get; }
+    private ICollection<LayerBase> LayerStack { get; set; }
+
+    protected void AttachLayer(LayerBase layer)
+    {
+        LayerStack.Add(layer);
+        layer.OnAttach();
+    }
 
     public void Initialize()
     {
@@ -38,27 +57,27 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
 
     public virtual void Run()
     {
-        var shader = GraphicsFactory.CreateShader();
-
-        var bufferLayout = new BufferLayout(new List<BufferElement>
+        while (!Window.ShouldClose)
         {
-            new BufferElement("aPos", ShaderDataType.Float3)
-        });
-        var pipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
-        var vbo = GraphicsFactory.CreateVertexBuffer();
+            foreach (var layer in LayerStack)
+            {
+                layer.Update(0.0f);
+            }
 
-        while(!Window.ShouldClose)
-        {
             Window.Update();
-
-            Renderer.Clear();
-
-            Renderer.DrawGeometry(pipeline, vbo);
         }
     }
 
     public void Dispose()
     {
+        for (int i = LayerStack.Count - 1; i >= 0; i--)
+        {
+            var layer = LayerStack.ElementAt(i);
+            layer.OnDetach();
+
+            LayerStack.Remove(layer);
+        }
+
         Window.Dispose();
     }
 }

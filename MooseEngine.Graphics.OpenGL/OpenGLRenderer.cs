@@ -10,10 +10,12 @@ internal sealed class OpenGLRenderer : IRenderer
         GL.ClearColor(0.8f, 0.2f, 0.3f, 1.0f);
     }
 
-    public void DrawGeometry(IPipeline pipeline, IVertexBuffer vertexBuffer)
+    public void DrawGeometry(IPipeline? pipeline, IVertexBuffer? vertexBuffer)
     {
-        pipeline.Bind();
-        vertexBuffer.Bind();
+        // TODO: Throw if Pipeline or VertexBuffer is null!
+
+        pipeline?.Bind();
+        vertexBuffer?.Bind();
 
         GL.DrawArrays(GLConstants.GL_TRIANGLES, 0, 3);
     }

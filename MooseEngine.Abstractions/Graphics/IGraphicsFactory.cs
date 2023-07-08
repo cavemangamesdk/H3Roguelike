@@ -7,7 +7,7 @@ public interface IBindable
 
 public interface IGraphicsFactory
 {
-    IPipeline CreatePipeline();
+    IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout);
     IVertexBuffer CreateVertexBuffer();
 
     IShader CreateShader();

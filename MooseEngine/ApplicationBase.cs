@@ -40,7 +40,11 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
     {
         var shader = GraphicsFactory.CreateShader();
 
-        var pipeline = GraphicsFactory.CreatePipeline();
+        var bufferLayout = new BufferLayout(new List<BufferElement>
+        {
+            new BufferElement("aPos", ShaderDataType.Float3)
+        });
+        var pipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
         var vbo = GraphicsFactory.CreateVertexBuffer();
 
         while(!Window.ShouldClose)
@@ -49,7 +53,6 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
 
             Renderer.Clear();
 
-            shader.Bind();
             Renderer.DrawGeometry(pipeline, vbo);
         }
     }

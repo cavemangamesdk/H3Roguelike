@@ -2,21 +2,15 @@
 
 internal sealed class OpenGLVertexBuffer : IVertexBuffer
 {
-    public OpenGLVertexBuffer()
+    public OpenGLVertexBuffer(float[] vertices, int size)
     {
-        var vertices = new float[3 * 3] {
-            -0.5f, -0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f,
-             0.0f,  0.5f, 0.0f
-        };
-
         var ids = new uint[1];
         GL.GenBuffers(1, ids);
         RendererId = ids[0];
 
         Bind();
 
-        GL.BufferData(GLConstants.GL_ARRAY_BUFFER, sizeof(float) * 9, vertices, GLConstants.GL_STATIC_DRAW);
+        GL.BufferData(GLConstants.GL_ARRAY_BUFFER, size, vertices, GLConstants.GL_STATIC_DRAW);
     }
 
     private uint RendererId { get; }
@@ -29,3 +23,4 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
         GL.EnableVertexAttribArray(0);
     }
 }
+

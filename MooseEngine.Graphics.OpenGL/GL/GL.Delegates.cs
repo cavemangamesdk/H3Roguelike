@@ -115,13 +115,13 @@ public partial class GL
         internal delegate void glDeleteBuffersDelegate(int n, uint[] buffers);
         internal delegate void glGenBuffersDelegate(int n, uint[] buffers);
         internal delegate bool glIsBufferDelegate(uint buffer);
-        internal delegate void glBufferDataObjectDelegate(uint target, int size, object data, uint usage);
-        internal delegate void glBufferDataFloatDelegate(uint target, int size, float[] data, uint usage);
-        internal delegate void glBufferDataUintDelegate(uint target, int size, uint[] data, uint usage);
-        internal delegate void glBufferDataIntDelegate(uint target, int size, int[] data, uint usage);
-        internal delegate void glBufferDataDoubleDelegate(uint target, int size, double[] data, uint usage);
-        internal delegate void glBufferSubDataObjectDelegate(uint target, int offset, int size, object data);
-        internal delegate void glBufferSubDataDelegate(uint target, int offset, int size, float[] data);
+
+        // TODO: Testing
+        internal unsafe delegate void glBufferDataUnsafeDelegate(uint target, int size, void* data, uint usage);
+        internal delegate void glBufferDataDelegate(uint target, int size, IntPtr dataPtr, uint usage);
+        internal unsafe delegate void glBufferSubDataUnsafeDelegate(uint target, int offset, int size, void* data);
+        internal delegate void glBufferSubDataDelegate(uint target, int offset, int size, IntPtr dataPtr);
+
         internal delegate void glGetBufferSubDataDelegate(uint target, IntPtr offset, IntPtr size, IntPtr data);
         internal delegate void glMapBufferDelegate(uint target, uint access);
         internal delegate bool glUnmapBufferDelegate(uint target);

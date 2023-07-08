@@ -1,38 +1,25 @@
-﻿namespace MooseEngine.Graphics.OpenGL;
+﻿using MooseEngine.Graphics.OpenGL.Enumerations;
+
+namespace MooseEngine.Graphics.OpenGL;
 
 internal sealed class OpenGLVertexBuffer : IVertexBuffer
 {
-    public OpenGLVertexBuffer(float[] vertices, int size)
+    public OpenGLVertexBuffer(int size, GLBufferUsage bufferUsage)
     {
-        var ids = new uint[1];
-        GL.GenBuffers(1, ids);
-        RendererId = ids[0];
+        RendererId = CreateVertexBuffer();
 
         Bind();
 
-        GL.BufferData(GLConstants.GL_ARRAY_BUFFER, size, vertices, GLConstants.GL_STATIC_DRAW);
+        GL.BufferData(GLBufferBindingTarget.ArrayBuffer, size, IntPtr.Zero, bufferUsage);
     }
 
-    private uint RendererId { get; }
-
-    public void Bind()
+    public OpenGLVertexBuffer(float[] vertices, int size, GLBufferUsage bufferUsage)
     {
-        GL.BindBuffer(GLConstants.GL_ARRAY_BUFFER, RendererId);
-    }
-}
-
-
-internal sealed class OpenGLVertexBuffer<TVertex> : IVertexBuffer<TVertex>
-{
-    public OpenGLVertexBuffer(TVertex[] vertices, int size)
-    {
-        var ids = new uint[1];
-        GL.GenBuffers(1, ids);
-        RendererId = ids[0];
+        RendererId = CreateVertexBuffer();
 
         Bind();
 
-        GL.BufferData1(GLConstants.GL_ARRAY_BUFFER, size, vertices, GLConstants.GL_STATIC_DRAW);
+        GL.BufferData(GLBufferBindingTarget.ArrayBuffer, size, vertices.GetMemoryAddress(), bufferUsage);
     }
 
     private uint RendererId { get; }
@@ -42,10 +29,17 @@ internal sealed class OpenGLVertexBuffer<TVertex> : IVertexBuffer<TVertex>
         GL.BindBuffer(GLConstants.GL_ARRAY_BUFFER, RendererId);
     }
 
-    public void SetData(TVertex[] vertices, int size)
+    public void SetData<T>(T[] vertices, int size)
     {
         Bind();
 
-        GL.BufferSubData1(GLConstants.GL_ARRAY_BUFFER, 0, size, vertices);
+        GL.BufferSubData(GLConstants.GL_ARRAY_BUFFER, 0, size, vertices.GetMemoryAddress());
+    }
+
+    private uint CreateVertexBuffer()
+    {
+        var ids = new uint[1];
+        GL.GenBuffers(1, ids);
+        return ids[0];
     }
 }

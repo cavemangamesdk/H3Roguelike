@@ -553,39 +553,14 @@ public partial class GL
             return (bool)GetDelegateFor<Delegates.glIsBufferDelegate>()(buffer);
         }
 
-        public static void glBufferData(uint target, int size, object data, uint usage)
+        public static void glBufferData(uint target, int size, IntPtr dataPtr, uint usage)
         {
-            GetDelegateFor<Delegates.glBufferDataObjectDelegate>("glBufferData")(target, size, data, usage);
+            GetDelegateFor<Delegates.glBufferDataDelegate>("glBufferData")(target, size, dataPtr, usage);
         }
 
-        public static void glBufferData(uint target, int size, float[] data, uint usage)
+        public static void glBufferSubData(uint target, int offset, int size, IntPtr dataPtr)
         {
-            GetDelegateFor<Delegates.glBufferDataFloatDelegate>("glBufferData")(target, size, data, usage);
-        }
-
-        public static void glBufferData(uint target, int size, uint[] data, uint usage)
-        {
-            GetDelegateFor<Delegates.glBufferDataUintDelegate>("glBufferData")(target, size, data, usage);
-        }
-
-        public static void glBufferData(uint target, int size, int[] data, uint usage)
-        {
-            GetDelegateFor<Delegates.glBufferDataIntDelegate>("glBufferData")(target, size, data, usage);
-        }
-
-        public static void glBufferData(uint target, int size, double[] data, uint usage)
-        {
-            GetDelegateFor<Delegates.glBufferDataDoubleDelegate>("glBufferData")(target, size, data, usage);
-        }
-
-        public static void glBufferSubData(uint target, int offset, int size, object data)
-        {
-            GetDelegateFor<Delegates.glBufferSubDataObjectDelegate>("glBufferSubData")(target, offset, size, data);
-        }
-
-        public static void glBufferSubData(uint target, int offset, int size, float[] data)
-        {
-            GetDelegateFor<Delegates.glBufferSubDataDelegate>()(target, offset, size, data);
+            GetDelegateFor<Delegates.glBufferSubDataDelegate>("glBufferSubData")(target, offset, size, dataPtr);
         }
 
         public static void glGetBufferSubData(uint target, IntPtr offset, IntPtr size, IntPtr data)

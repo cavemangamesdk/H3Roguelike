@@ -23,15 +23,16 @@ public partial class GL
 
     // Buffers
     public static void GenBuffers(int count, uint[] buffers) => Native.glGenBuffers(count, buffers);
+    public static void BindBuffer(GLBufferBindingTarget target, uint buffer) => BindBuffer((uint)target, buffer);
     public static void BindBuffer(uint target, uint buffer) => Native.glBindBuffer(target, buffer);
-    public static void BufferData1(uint type, int size, object data, uint usage) => Native.glBufferData(type, size, data, usage);
-    public static void BufferData(uint target, int size, float[] data, uint usage) => Native.glBufferData(target, size, data, usage);
-    public static void BufferData(uint target, int size, uint[] data, uint usage) => Native.glBufferData(target, size, data, usage);
-    public static void BufferSubData1(uint target, int offset, int size, object data) => Native.glBufferSubData(target, offset, size, data);
-    public static void BufferSubData(uint target, int offset, int size, float[] data) => Native.glBufferSubData(target, offset, size, data);
+    public static void BufferData(GLBufferBindingTarget target, int size, IntPtr dataPtr, GLBufferUsage usage) => BufferData((uint)target, size, dataPtr, (uint)usage);
+    public static void BufferData(uint target, int size, IntPtr dataPtr, uint usage) => Native.glBufferData(target, size, dataPtr, usage);
+    public static void BufferSubData(GLBufferBindingTarget target, int offset, int size, IntPtr dataPtr) => BufferSubData((uint)target, offset, size, dataPtr);
+    public static void BufferSubData(uint target, int offset, int size, IntPtr dataPtr) => Native.glBufferSubData(target, offset, size, dataPtr);
+    public static void BindBufferBase(GLBufferBindingTarget target, uint binding, uint buffer) => BindBufferBase((uint)target, binding, buffer);
     public static void BindBufferBase(uint target, uint binding, uint buffer) => Native.glBindBufferBase(target, binding, buffer);
 
-    // Texturesdd
+    // Textures
     public static void GenTextures(int count, uint[] textures) => Functions.glGenTextures(count, textures);
     public static void BindTexture(uint target, uint texture) => Functions.glBindTexture(target, texture);
     public static void ActiveTexture(uint texture) => Native.glActiveTexture(texture);

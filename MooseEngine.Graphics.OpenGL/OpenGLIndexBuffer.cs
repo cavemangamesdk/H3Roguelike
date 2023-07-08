@@ -1,8 +1,10 @@
-﻿namespace MooseEngine.Graphics.OpenGL;
+﻿using MooseEngine.Graphics.OpenGL.Enumerations;
+
+namespace MooseEngine.Graphics.OpenGL;
 
 internal sealed class OpenGLIndexBuffer : IIndexBuffer
 {
-    public OpenGLIndexBuffer(uint[] indices, int count)
+    public OpenGLIndexBuffer(uint[] indices, int count, GLBufferUsage bufferUsage)
     {
         Count = count;
 
@@ -11,7 +13,7 @@ internal sealed class OpenGLIndexBuffer : IIndexBuffer
         RendererId = ids[0];
         Bind();
 
-        GL.BufferData(GLConstants.GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint), indices, GLConstants.GL_STATIC_DRAW);
+        GL.BufferData(GLBufferBindingTarget.ElementArrayBuffer, count * sizeof(uint), indices.GetMemoryAddress(), bufferUsage);
     }
 
     public int Count { get; }
@@ -19,6 +21,6 @@ internal sealed class OpenGLIndexBuffer : IIndexBuffer
 
     public void Bind()
     {
-        GL.BindBuffer(GLConstants.GL_ELEMENT_ARRAY_BUFFER, RendererId);
+        GL.BindBuffer(GLBufferBindingTarget.ElementArrayBuffer, RendererId);
     }
 }

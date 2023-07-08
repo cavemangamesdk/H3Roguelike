@@ -1,8 +1,10 @@
 ﻿using MooseEngine.Mathematics.Vectors;
+using System.Runtime.InteropServices;
 
 namespace MooseEngine.Mathematics.Matrixes;
 
-public class Matrix4 : IEquatable<Matrix4>
+[StructLayout(LayoutKind.Sequential)]
+public struct Matrix4 : IEquatable<Matrix4>
 {
     public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
     {
@@ -20,10 +22,10 @@ public class Matrix4 : IEquatable<Matrix4>
         Row3 = new Vector4(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
-    public Vector4 Row0 { get; private set; }
-    public Vector4 Row1 { get; private set; }
-    public Vector4 Row2 { get; private set; }
-    public Vector4 Row3 { get; private set; }
+    public Vector4 Row0;
+    public Vector4 Row1;
+    public Vector4 Row2;
+    public Vector4 Row3;
 
     public static Matrix4 Zero => new(Vector4.Zero, Vector4.Zero, Vector4.Zero, Vector4.Zero);
     public static Matrix4 Identity => new(Vector4.XAxis, Vector4.YAxis, Vector4.ZAxis, Vector4.WAxis);
@@ -314,6 +316,15 @@ public class Matrix4 : IEquatable<Matrix4>
 
         return this;
     }
+
+    public Vector3 Multiply(Vector4 other)
+    {
+        return new Vector3(
+            Row0.X * other.X + Row1.X * other.Y + Row2.X * other.Z + Row3.X * other.W,
+            Row0.Y * other.X + Row1.Y * other.Y + Row2.Y * other.Z + Row3.Y * other.W,
+            Row0.Z * other.X + Row1.Z * other.Y + Row2.Z * other.Z + Row3.Z * other.W
+            );
+    }
     #endregion
 
     #region Operators
@@ -328,6 +339,11 @@ public class Matrix4 : IEquatable<Matrix4>
     }
 
     public static Matrix4 operator *(Matrix4 left, Matrix4 right)
+    {
+        return left.Multiply(right);
+    }
+
+    public static Vector3 operator *(Matrix4 left, Vector4 right)
     {
         return left.Multiply(right);
     }

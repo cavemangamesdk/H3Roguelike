@@ -1,4 +1,6 @@
 ﻿using MooseEngine.Extensions.SixLabors.ImageSharp;
+using MooseEngine.Graphics.Enumerations;
+using System.Runtime.InteropServices;
 
 namespace MooseEngine.Graphics.OpenGL;
 
@@ -13,49 +15,43 @@ internal sealed class OpenGLGraphicsLibrary : IGraphicsFactory
 
     public IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout) => new OpenGLPipeline(shader, bufferLayout);
 
-    public IVertexBuffer<TVertex> CreateVertexBuffer<TVertex>(TVertex[] vertices, int size) => new OpenGLVertexBuffer<TVertex>(vertices, size);
+    public IVertexBuffer CreateVertexBuffer(int size, BufferUsage bufferUsage) => new OpenGLVertexBuffer(size, OpenGLHelper.ToGLBufferUsage(bufferUsage));
+    public IVertexBuffer CreateVertexBuffer(float[] vertices, BufferUsage bufferUsage) => CreateVertexBuffer(vertices, vertices.Length * sizeof(float), bufferUsage);
+    public IVertexBuffer CreateVertexBuffer(float[] vertices, int size, BufferUsage bufferUsage) => new OpenGLVertexBuffer(vertices, size, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
-    public IVertexBuffer CreateVertexBuffer(float[] vertices) => CreateVertexBuffer(vertices, vertices.Length * sizeof(float));
-    public IVertexBuffer CreateVertexBuffer(float[] vertices, int size) => new OpenGLVertexBuffer(vertices, size);
-
-    public IIndexBuffer CreateIndexBuffer(uint[] indices) => CreateIndexBuffer(indices, indices.Length);
-    public IIndexBuffer CreateIndexBuffer(uint[] indices, int count) => new OpenGLIndexBuffer(indices, 6);
+    public IIndexBuffer CreateIndexBuffer(uint[] indices, BufferUsage bufferUsage) => CreateIndexBuffer(indices, indices.Length, bufferUsage);
+    public IIndexBuffer CreateIndexBuffer(uint[] indices, int count, BufferUsage bufferUsage) => new OpenGLIndexBuffer(indices, 6, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
     public IShader CreateShader() => CreateShader("Assets/Shaders/LearnOpenGL/Chapter1/GettingStarted_HelloTriangle.shaderfile");
     public IShader CreateShader(string filepath) => new OpenGLShader(filepath);
 
-    public IUniformBuffer CreateUniformBuffer(int size, uint binding) => new OpenGLUniformBuffer(size, binding);
+    public IUniformBuffer CreateUniformBuffer(int size, uint binding, BufferUsage bufferUsage) => new OpenGLUniformBuffer(size, binding, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
     public ITexture2D CreateTexture2D(string filepath) => new OpenGLTexture2D(ImageLoader, filepath);
 }
 
-internal sealed class OpenGLUniformBuffer : IUniformBuffer
+public static class ObjectExtensions
 {
-    public OpenGLUniformBuffer(int size, uint binding)
+    public static int UnsafeSizeOf<T>(this T obj)
     {
-        var UBOs = new uint[1];
-        GL.GenBuffers(1, UBOs);
-
-        RendererID = UBOs[0];
-
-        Bind();
-
-        GL.BufferData1(GLConstants.GL_UNIFORM_BUFFER, size, default!, GLConstants.GL_DYNAMIC_DRAW);
-
-        GL.BindBufferBase(GLConstants.GL_UNIFORM_BUFFER, binding, RendererID);
+        return System.Runtime.CompilerServices.Unsafe.SizeOf<T>();
     }
 
-    private uint RendererID { get; set; }
-
-    public void SetData(float[] data, int size, int offset = 0)
+    public unsafe static void* GetRawMemoryAddress(this object obj)
     {
-        Bind();
-
-        GL.BufferSubData(GLConstants.GL_UNIFORM_BUFFER, offset, size, data);
+        return obj.GetMemoryAddress().ToPointer();
     }
 
-    public void Bind()
+    public static IntPtr GetMemoryAddress(this object obj)
     {
-        GL.BindBuffer(GLConstants.GL_UNIFORM_BUFFER, RendererID);
+        var gcHandle = GCHandle.Alloc(obj, GCHandleType.Pinned);
+        return gcHandle.AddrOfPinnedObject();
+    }
+
+    public static IntPtr GetMemoryAddress(byte[] bytes)
+    {
+        var ptr = Marshal.AllocHGlobal(bytes.Length);
+        Marshal.Copy(bytes, 0, ptr, bytes.Length);
+        return ptr;
     }
 }

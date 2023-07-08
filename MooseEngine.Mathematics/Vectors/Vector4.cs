@@ -1,6 +1,9 @@
-﻿namespace MooseEngine.Mathematics.Vectors;
+﻿using System.Runtime.InteropServices;
 
-public class Vector4 : IEquatable<Vector4>
+namespace MooseEngine.Mathematics.Vectors;
+
+[StructLayout(LayoutKind.Sequential)]
+public struct Vector4 : IEquatable<Vector4>
 {
     public Vector4()
     {
@@ -26,10 +29,10 @@ public class Vector4 : IEquatable<Vector4>
         W = w;
     }
 
-    public float X { get; set; }
-    public float Y { get; set; }
-    public float Z { get; set; }
-    public float W { get; set; }
+    public float X;
+    public float Y;
+    public float Z;
+    public float W;
 
     public static Vector4 Zero => new(0.0f, 0.0f, 0.0f, 0.0f);
     public static Vector4 One => new(1.0f, 1.0f, 1.0f, 1.0f);
@@ -121,6 +124,16 @@ public class Vector4 : IEquatable<Vector4>
         };
 
         return result;
+    }
+
+    public static bool operator ==(Vector4 left, Vector4 right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Vector4 left, Vector4 right)
+    {
+        return !(left == right);
     }
     #endregion
 

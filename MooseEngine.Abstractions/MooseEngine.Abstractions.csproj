@@ -7,4 +7,8 @@
 	  <RootNamespace>MooseEngine</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MooseEngine.Mathematics\MooseEngine.Mathematics.csproj" />
+  </ItemGroup>
+
 </Project>

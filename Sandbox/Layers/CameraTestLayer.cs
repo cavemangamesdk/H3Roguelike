@@ -79,8 +79,8 @@ class CameraTestLayer : LayerBase
 
     public override void Update(float deltaTime)
     {
-        cameraData.ProjectionMatrix = Camera.ProjectionMatrix.ToFloatArray();
-        cameraData.ViewMatrix = viewMatrix.ToFloatArray();
+        cameraData.ProjectionMatrix = Camera.Projection.ToFloatArray();
+        cameraData.ViewMatrix = Camera.View.ToFloatArray();
         cameraData.ViewPosition = viewPosition.ToFloatArray();
 
         UniformBuffer.SetData(cameraData.ProjectionMatrix, (4 * 4) * sizeof(float));
@@ -101,42 +101,3 @@ public struct CameraData
     public float[] ViewMatrix { get; set; }         // Matrix4 (4 * 4 * sizeof(float)) = 64 bytes
     public float[] ViewPosition { get; set; }       // Vector3 (3 * sizeof(float)) = 12 bytes
 }                                                   // Total = 140 bytes
-
-class OrthographicCamera
-{
-    public OrthographicCamera(float aspectRatio) : this(aspectRatio, 10.0f)
-    {
-    }
-
-    public OrthographicCamera(float aspectRatio, float size) : this(aspectRatio, size, -1.0f, 1.0f)
-    {
-    }
-
-    public OrthographicCamera(float aspectRatio, float size, float near, float far)
-    {
-        ProjectionMatrix = Matrix4.Identity;
-        AspectRatio = aspectRatio;
-        OrthographicSize = size;
-        OrthographicNear = near;
-        OrthographicFar = far;
-
-        RecalculateProjection();
-    }
-
-    public Matrix4 ProjectionMatrix { get; set; }
-    public float AspectRatio { get; }
-
-    public float OrthographicSize { get; }
-    public float OrthographicNear { get; }
-    public float OrthographicFar { get; }
-
-    private void RecalculateProjection()
-    {
-        float orthoLeft = -OrthographicSize * AspectRatio * 0.5f;
-        float orthoRight = OrthographicSize * AspectRatio * 0.5f;
-        float orthoBottom = -OrthographicSize * 0.5f;
-        float orthoTop = OrthographicSize * 0.5f;
-
-        ProjectionMatrix = Matrix4.Orthographic(orthoLeft, orthoRight, orthoBottom, orthoTop, OrthographicNear, OrthographicFar);
-    }
-}

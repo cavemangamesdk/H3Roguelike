@@ -1,6 +1,10 @@
-﻿namespace MooseEngine.Mathematics.Vectors;
+﻿using System.Runtime.InteropServices;
 
-public class Vector2 : IEquatable<Vector2>
+namespace MooseEngine.Mathematics.Vectors;
+
+
+[StructLayout(LayoutKind.Sequential)]
+public struct Vector2 : IEquatable<Vector2>
 {
     public Vector2()
     {
@@ -20,8 +24,8 @@ public class Vector2 : IEquatable<Vector2>
         Y = y;
     }
 
-    public float X { get; set; }
-    public float Y { get; set; }
+    public float X;
+    public float Y;
 
     public static Vector2 Zero => new(0, 0);
     public static Vector2 One => new(1, 1);

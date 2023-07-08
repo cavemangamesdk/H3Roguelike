@@ -1,6 +1,9 @@
-﻿namespace MooseEngine.Mathematics.Vectors;
+﻿using System.Runtime.InteropServices;
 
-public class Vector3 : IEquatable<Vector3>
+namespace MooseEngine.Mathematics.Vectors;
+
+[StructLayout(LayoutKind.Sequential)]
+public struct Vector3 : IEquatable<Vector3>
 {
     public Vector3()
     {
@@ -23,9 +26,9 @@ public class Vector3 : IEquatable<Vector3>
         Z = z;
     }
 
-    public float X { get; set; }
-    public float Y { get; set; }
-    public float Z { get; set; }
+    public float X;
+    public float Y;
+    public float Z;
 
     public static Vector3 Zero => new(0, 0, 0);
     public static Vector3 One => new(1, 1, 1);
@@ -251,6 +254,16 @@ public class Vector3 : IEquatable<Vector3>
 
         return result;
     }
+
+    public static bool operator ==(Vector3 left, Vector3 right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Vector3 left, Vector3 right)
+    {
+        return !(left == right);
+    }
     #endregion
 
     #region Conversion operators
@@ -288,9 +301,9 @@ public class Vector3 : IEquatable<Vector3>
         return obj is Vector3 vector && Equals(vector);
     }
 
-    public bool Equals(Vector3? other)
+    public bool Equals(Vector3 other)
     {
-        return other is not null && X == other.X && Y == other.Y && Z == other.Z;
+        return X == other.X && Y == other.Y && Z == other.Z;
     }
 
     public override int GetHashCode()

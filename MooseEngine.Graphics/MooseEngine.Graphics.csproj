@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MooseEngine.Extensions.Autofac\MooseEngine.Extensions.Autofac.csproj" />
     <ProjectReference Include="..\MooseEngine.Graphics.OpenGL\MooseEngine.Graphics.OpenGL.csproj" />
+    <ProjectReference Include="..\MooseEngine.Mathematics\MooseEngine.Mathematics.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using MooseEngine;
 using MooseEngine.Graphics;
+using MooseEngine.Mathematics.Vectors;
 
 Engine.Start<SandboxApplication>();
 
@@ -21,13 +22,14 @@ class SandboxApplication : ApplicationBase
     {
         //AttachLayer(new GettingStarted_HelloTriangleLayer(Renderer, GraphicsFactory));
         //AttachLayer(new GettingStarted_TexturesLayer(Renderer, GraphicsFactory));
-        AttachLayer(new Renderer2DLayer(Renderer, Renderer2D));
+        //AttachLayer(new CameraTestLayer(Window, Renderer, GraphicsFactory));
+        AttachLayer(new Renderer2DTestLayer(Renderer, Renderer2D));
     }
 }
 
-class Renderer2DLayer : LayerBase
+class Renderer2DTestLayer : LayerBase
 {
-    public Renderer2DLayer(IRenderer renderer, IRenderer2D renderer2D) 
+    public Renderer2DTestLayer(IRenderer renderer, IRenderer2D renderer2D) 
         : base("Renderer2D Test Layer")
     {
         Renderer = renderer;
@@ -37,9 +39,14 @@ class Renderer2DLayer : LayerBase
     private IRenderer Renderer { get; }
     private IRenderer2D Renderer2D { get; }
 
+    // Runtime
+    private OrthographicCamera? Camera { get; set; }
+
     public override void OnAttach()
     {
         Renderer2D.Initialize();
+
+        Camera = new OrthographicCamera(1024.0f / 768.0f, 2.0f);
     }
 
     public override void OnDetach()
@@ -49,12 +56,10 @@ class Renderer2DLayer : LayerBase
     public override void Update(float deltaTime)
     {
         Renderer.Clear();
-        Renderer2D.BeginScene();
+        Renderer2D.BeginScene(Camera);
 
-
+        Renderer2D.DrawQuad(Vector2.Zero, Vector2.One, Vector4.One);
 
         Renderer2D.EndScene();
-        //AttachLayer(new GettingStarted_TexturesLayer(Renderer, GraphicsFactory));
-        AttachLayer(new CameraTestLayer(Window, Renderer, GraphicsFactory));
     }
 }

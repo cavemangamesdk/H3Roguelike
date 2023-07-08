@@ -1,8 +1,10 @@
 ﻿using MooseEngine.Mathematics.Vectors;
+using System.Runtime.InteropServices;
 
 namespace MooseEngine.Mathematics.Matrixes;
 
-public class Matrix3 : IEquatable<Matrix3>
+[StructLayout(LayoutKind.Sequential)]
+public struct Matrix3 : IEquatable<Matrix3>
 {
     public Matrix3(Vector3 row0, Vector3 row1, Vector3 row2)
     {
@@ -18,9 +20,9 @@ public class Matrix3 : IEquatable<Matrix3>
         Row2 = new Vector3(matrix.Row2.X, matrix.Row2.Y, matrix.Row2.Z);
     }
 
-    public Vector3 Row0 { get; private set; }
-    public Vector3 Row1 { get; private set; }
-    public Vector3 Row2 { get; private set; }
+    public Vector3 Row0;
+    public Vector3 Row1;
+    public Vector3 Row2;
 
     public static Matrix3 Zero => new(Vector3.Zero, Vector3.Zero, Vector3.Zero);
     public static Matrix3 Identity => new(Vector3.XAxis, Vector3.YAxis, Vector3.ZAxis);

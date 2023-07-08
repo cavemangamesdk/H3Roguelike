@@ -14,14 +14,16 @@ internal interface IExecutableApplication : IDisposable
 
 public abstract class ApplicationBase : IApplication, IExecutableApplication
 {
-    public ApplicationBase(IWindow window, IRenderer renderer)
+    public ApplicationBase(IWindow window, IRenderer renderer, IGraphicsFactory graphicsFactory)
     {
         Window = window;
         Renderer = renderer;
+        GraphicsFactory = graphicsFactory;
     }
 
     private IWindow Window { get; }
     private IRenderer Renderer { get; }
+    private IGraphicsFactory GraphicsFactory { get; }
 
     public void Initialize()
     {
@@ -36,11 +38,20 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
 
     public virtual void Run()
     {
+        var shader = GraphicsFactory.CreateShader();
+
+        var pipeline = GraphicsFactory.CreatePipeline();
+        var vbo = GraphicsFactory.CreateVertexBuffer();
+
         while(!Window.ShouldClose)
         {
             Window.Update();
 
             Renderer.Clear();
+
+            shader.Bind();
+            pipeline.Bind();
+            Renderer.DrawGeometry(vbo);
         }
     }
 

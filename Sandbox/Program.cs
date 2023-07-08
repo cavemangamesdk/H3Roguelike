@@ -5,8 +5,8 @@ Engine.Start<SandboxApplication>();
 
 class SandboxApplication : ApplicationBase
 {
-    public SandboxApplication(IWindow window, IRenderer renderer)
-        : base(window, renderer)
+    public SandboxApplication(IWindow window, IRenderer renderer, IGraphicsFactory graphicsFactory)
+        : base(window, renderer, graphicsFactory)
     {
     }
 }

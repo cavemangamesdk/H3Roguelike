@@ -1,10 +1,21 @@
-﻿namespace MooseEngine.Platform.Glfw;
+﻿using MooseEngine.Events;
+
+namespace MooseEngine.Platform.Glfw;
 
 public sealed class GlfwWindow : IWindow
 {
     private IntPtr GlfwWindowPtr { get; set; } = IntPtr.Zero;
+    private EventCallbackFn? EventCallback { get; set; }
+
+    private Glfw.Delegates.GLFWwindowclosefun? WindowCloseFunc { get; set; }
+    private Glfw.Delegates.GLFWwindowsizefun? WindowResizeFunc { get; set; }
 
     public bool ShouldClose => Glfw.WindowShouldClose(GlfwWindowPtr);
+
+    public void SetEventCallback(EventCallbackFn eventCallbackFn)
+    {
+        EventCallback = eventCallbackFn;
+    }
 
     public void Initialize()
     {
@@ -25,6 +36,23 @@ public sealed class GlfwWindow : IWindow
         }
 
         Glfw.MakeContextCurrent(GlfwWindowPtr);
+
+        // TODO: Do something more smart than this... 
+        WindowCloseFunc = WindowCloseEventFunc;
+        Glfw.SetWindowCloseCallback(GlfwWindowPtr, WindowCloseFunc);
+
+        WindowResizeFunc = WindowResizeEventFunc;
+        Glfw.SetWindowSizeCallback(GlfwWindowPtr, WindowResizeFunc);
+    }
+
+    private void WindowResizeEventFunc(nint window, int width, int height)
+    {
+        EventCallback?.Invoke(new WindowResizeEvent(width, height));
+    }
+
+    private void WindowCloseEventFunc(nint window)
+    {
+        EventCallback?.Invoke(new WindowCloseEvent());
     }
 
     public void Update()

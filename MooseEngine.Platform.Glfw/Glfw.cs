@@ -17,5 +17,10 @@ public partial class Glfw
     public static void SwapBuffers(IntPtr windowHandlePtr) => Functions.glfwSwapBuffers(windowHandlePtr);
     public static void PollEvents() => Functions.glfwPollEvents();
 
+    // Events
+    public static Delegates.GLFWwindowclosefun SetWindowCloseCallback(IntPtr windowHandlePtr, Delegates.GLFWwindowclosefun windowclosefun) => Functions.glfwSetWindowCloseCallback(windowHandlePtr, windowclosefun);
+    public static Delegates.GLFWwindowsizefun SetWindowSizeCallback(IntPtr windowHandlePtr, Delegates.GLFWwindowsizefun windowsizefun) => Functions.glfwSetWindowSizeCallback(windowHandlePtr, windowsizefun);
+
+    // Native
     public static IntPtr GetWin32Window(IntPtr glfwWindowPtr) => Native.glfwGetWin32Window(glfwWindowPtr);
 }

@@ -1,4 +1,5 @@
-﻿using MooseEngine.Graphics;
+﻿using MooseEngine.Events;
+using MooseEngine.Graphics;
 
 namespace MooseEngine;
 
@@ -14,6 +15,9 @@ public abstract class LayerBase
     public abstract void OnAttach();
     public abstract void OnDetach();
     public abstract void Update(float deltaTime);
+    public virtual void OnEvent(EventBase e)
+    {
+    }
 }
 
 public interface IApplication
@@ -36,6 +40,7 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
     }
 
     private IWindow Window { get; }
+    private bool IsRunning { get; set; } = true;
     private ICollection<LayerBase> LayerStack { get; set; }
 
     protected void AttachLayer(LayerBase layer)
@@ -47,6 +52,7 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
     public void Initialize()
     {
         Window.Initialize();
+        Window.SetEventCallback(OnEvent);
 
         InitializeApplication();
     }
@@ -57,7 +63,7 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
 
     public virtual void Run()
     {
-        while (!Window.ShouldClose)
+        while (IsRunning)
         {
             foreach (var layer in LayerStack)
             {
@@ -66,6 +72,23 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
 
             Window.Update();
         }
+    }
+
+    private void OnEvent(EventBase e)
+    {
+        var dispatcher = new EventDispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(OnWindowCloseFunc);
+
+        foreach (var layer in LayerStack)
+        {
+            layer.OnEvent(e);
+        }
+    }
+
+    private bool OnWindowCloseFunc(WindowCloseEvent arg)
+    {
+        IsRunning = false;
+        return true;
     }
 
     public void Dispose()

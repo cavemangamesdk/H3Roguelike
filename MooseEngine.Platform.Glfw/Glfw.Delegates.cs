@@ -5,7 +5,7 @@ namespace MooseEngine.Platform.Glfw;
 
 public partial class Glfw
 {
-    internal class Delegates
+    public class Delegates
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void GLFWglproc();

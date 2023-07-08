@@ -36,6 +36,7 @@ class SandboxLayer : LayerBase
     // Runtime
     private IPipeline? Pipeline { get; set; }
     private IVertexBuffer? VertexBuffer { get; set; }
+    private IIndexBuffer? IndexBuffer { get; set; }
 
     public override void OnAttach()
     {
@@ -47,6 +48,7 @@ class SandboxLayer : LayerBase
         });
         Pipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
         VertexBuffer = GraphicsFactory.CreateVertexBuffer();
+        IndexBuffer = GraphicsFactory.CreateIndexBuffer();
     }
 
     public override void OnDetach()
@@ -57,6 +59,6 @@ class SandboxLayer : LayerBase
     {
         Renderer.Clear();
 
-        Renderer.DrawGeometry(Pipeline, VertexBuffer);
+        Renderer.DrawGeometry(Pipeline, VertexBuffer, IndexBuffer);
     }
 }

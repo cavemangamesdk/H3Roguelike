@@ -18,9 +18,6 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
     public void Bind()
     {
         GL.BindBuffer(GLConstants.GL_ARRAY_BUFFER, RendererId);
-
-        GL.VertexAttribPointer(0, 3, GLConstants.GL_FLOAT, false, 3 * sizeof(float), IntPtr.Zero);
-        GL.EnableVertexAttribArray(0);
     }
 }
 

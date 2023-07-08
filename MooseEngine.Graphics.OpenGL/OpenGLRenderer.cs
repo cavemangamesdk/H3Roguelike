@@ -19,4 +19,17 @@ internal sealed class OpenGLRenderer : IRenderer
 
         GL.DrawArrays(GLConstants.GL_TRIANGLES, 0, 3);
     }
+
+    public void DrawGeometry(IPipeline? pipeline, IVertexBuffer? vertexBuffer, IIndexBuffer? indexBuffer, int indexCount = 0)
+    {
+        // TODO: Throw if Pipeline or VertexBuffer is null!
+
+        pipeline?.Bind();
+        vertexBuffer?.Bind();
+        indexBuffer?.Bind();
+
+        indexCount = (indexCount == 0 && indexBuffer != default) ? indexBuffer.Count : indexCount;
+        GL.DrawElements(GLConstants.GL_TRIANGLES, indexCount, GLConstants.GL_UNSIGNED_INT, IntPtr.Zero);
+
+    }
 }

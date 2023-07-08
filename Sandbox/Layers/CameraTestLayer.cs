@@ -34,8 +34,8 @@ class CameraTestLayer : LayerBase
 
     public override void OnAttach()
     {
-        var aspectRatio = (float)Window.Width / (float)Window.Height;
-        Camera = new OrthographicCamera(aspectRatio, 2.0f);
+        Camera = new OrthographicCamera(2.0f);
+        Camera.SetViewport(Window.Width, Window.Height);
 
         UniformBuffer = GraphicsFactory.CreateUniformBuffer(140, 0);
 

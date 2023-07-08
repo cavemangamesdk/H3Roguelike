@@ -46,7 +46,8 @@ class Renderer2DTestLayer : LayerBase
     {
         Renderer2D.Initialize();
 
-        Camera = new OrthographicCamera(1024.0f / 768.0f, 2.0f);
+        Camera = new OrthographicCamera(2.0f);
+        Camera.SetViewport(1024, 768);
     }
 
     public override void OnDetach()

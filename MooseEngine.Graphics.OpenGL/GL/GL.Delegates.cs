@@ -147,7 +147,7 @@ public partial class GL
         internal unsafe delegate void glGetActiveUniformDelegate(uint program, uint index, int bufSize, int* length, int* size, uint* type, char* name);
         internal delegate void glGetAttachedShadersDelegate(uint program, int maxCount, int[] count, uint[] shaders);
         internal delegate uint glGetAttribLocationDelegate(uint program, string name);
-        internal delegate void glGetProgramivDelegate(uint program, uint pname, int[] @params);
+        internal delegate void glGetProgramivDelegate(uint program, uint pname, ref int @params);
         internal delegate void glGetProgramInfoLogDelegate(uint program, int bufSize, ref int length, byte[] infoLog);
         internal delegate void glGetShaderivDelegate(uint shader, uint pname, ref int @params);
         internal delegate void glGetShaderInfoLogDelegate(uint shader, int bufSize, ref int length, byte[] infoLog);

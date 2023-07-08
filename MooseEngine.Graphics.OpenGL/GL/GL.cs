@@ -79,7 +79,7 @@ public partial class GL
     public static void LinkProgram(uint program) => Native.glLinkProgram(program);
     public static void UseProgram(uint program) => Native.glUseProgram(program);
 
-    public static void GetProgramiv(uint shader, uint pname, int[] @params) => Native.glGetProgramiv(shader, pname, @params);
+    public static void GetProgramiv(uint shader, uint pname, ref int @params) => Native.glGetProgramiv(shader, pname, ref @params);
     public static void GetProgramInfoLog(uint shader, int bufSize, ref int length, byte[] infoLog) => Native.glGetProgramInfoLog(shader, bufSize, ref length, infoLog);
 
     // Draw calls

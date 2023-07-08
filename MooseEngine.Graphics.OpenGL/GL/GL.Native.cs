@@ -713,9 +713,9 @@ public partial class GL
             return (uint)GetDelegateFor<Delegates.glGetAttribLocationDelegate>()(program, name);
         }
 
-        public static void glGetProgramiv(uint program, uint pname, int[] @params)
+        public static void glGetProgramiv(uint program, uint pname, ref int @params)
         {
-            GetDelegateFor<Delegates.glGetProgramivDelegate>()(program, pname, @params);
+            GetDelegateFor<Delegates.glGetProgramivDelegate>()(program, pname, ref @params);
         }
 
         public static void glGetProgramInfoLog(uint program, int bufSize, ref int length, byte[] infoLog)

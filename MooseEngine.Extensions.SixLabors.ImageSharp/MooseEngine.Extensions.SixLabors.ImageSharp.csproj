@@ -4,13 +4,14 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MooseEngine.Abstractions\MooseEngine.Abstractions.csproj" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MooseEngine.Extensions.Autofac\MooseEngine.Extensions.Autofac.csproj" />
-    <ProjectReference Include="..\MooseEngine.Extensions.SixLabors.ImageSharp\MooseEngine.Extensions.SixLabors.ImageSharp.csproj" />
   </ItemGroup>
 
 </Project>

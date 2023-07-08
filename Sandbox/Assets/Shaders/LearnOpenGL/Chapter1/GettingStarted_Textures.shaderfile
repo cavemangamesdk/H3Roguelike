@@ -1,0 +1,29 @@
+﻿#type Vertex
+#version 330 core
+layout(location = 0) in vec3 POSITION;
+layout(location = 1) in vec3 COLOR;
+layout(location = 2) in vec2 TEXCOORD;
+
+out vec3 v_Color;
+out vec2 v_TexCoord;
+
+void main()
+{
+    gl_Position = vec4(POSITION, 1.0);
+    v_TexCoord = TEXCOORD;
+    v_Color = COLOR;
+}
+
+#type Fragment
+#version 330 core
+out vec4 FragColor;
+
+in vec3 v_Color;
+in vec2 v_TexCoord;
+
+uniform sampler2D ourTexture;
+
+void main()
+{
+    FragColor = texture(ourTexture, v_TexCoord) * vec4(v_Color, 1.0);
+}

@@ -22,4 +22,6 @@ public interface IGraphicsFactory
 
     IShader CreateShader();
     IShader CreateShader(string filepath);
+
+    ITexture2D CreateTexture2D(string filepath);
 }

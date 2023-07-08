@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier> <!-- win-x64 -->
-		<RuntimeIdentifier>linux-x64</RuntimeIdentifier> <!-- linux-x64 -->
+		<!--<RuntimeIdentifier>linux-x64</RuntimeIdentifier> --><!-- linux-x64 -->
 		<PublishSingleFile>true</PublishSingleFile>
 		<PublishAot>true</PublishAot>
 	</PropertyGroup>

@@ -72,7 +72,9 @@ internal sealed class OpenGLShader : IShader
             var length = 0;
             GL.GetShaderInfoLog(shader, 512, ref length, infoLog);
 
-            throw new Exception();
+            var infoLogStr = Encoding.UTF8.GetString(infoLog, 0, length);
+
+            throw new Exception(infoLogStr);
         }
 
         return shader;
@@ -81,6 +83,22 @@ internal sealed class OpenGLShader : IShader
     public void Bind()
     {
         GL.UseProgram(ShaderProgram);
+    }
+
+    public void SetInt(string name, int value)
+    {
+        var location = GetUniformLocation(name);
+        GL.UniformMatrix1i(location, value);
+    }
+
+    private uint GetUniformLocation(string name)
+    {
+        if (!_uniformLocations.ContainsKey(name))
+        {
+            return GL.GetUniformLocation(ShaderProgram, name);
+        }
+
+        return _uniformLocations[name];
     }
 
     private void GetActiveUniforms()

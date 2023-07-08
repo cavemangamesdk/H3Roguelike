@@ -50,8 +50,7 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
             Renderer.Clear();
 
             shader.Bind();
-            pipeline.Bind();
-            Renderer.DrawGeometry(vbo);
+            Renderer.DrawGeometry(pipeline, vbo);
         }
     }
 

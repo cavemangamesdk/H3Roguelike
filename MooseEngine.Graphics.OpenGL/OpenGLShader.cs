@@ -5,31 +5,26 @@ namespace MooseEngine.Graphics.OpenGL;
 
 internal sealed class OpenGLShader : IShader
 {
-    private const string VertexShaderSource = """""
-        #version 330 core
-        layout (location = 0) in vec3 aPos;
-
-        void main()
-        {
-            gl_Position = vec4(aPos, 1.0);
-        }
-        """"";
-
-    private const string FragmentShaderSource = """""
-        #version 330 core
-        out vec4 FragColor;
-
-        void main()
-        {
-            FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-        }
-        """"";
-
-    public OpenGLShader()
+    enum ShaderType
     {
-        var vertexShader = CompileShader(GLConstants.GL_VERTEX_SHADER, VertexShaderSource);
-        var fragmentShader = CompileShader(GLConstants.GL_FRAGMENT_SHADER, FragmentShaderSource);
+        None = 0,
+        Vertex = 1,
+        Fragment = 2
+    };
+    const string TYPE_KEYWORD = "#type";
+
+    private IDictionary<string, uint> _uniformLocations;
+
+    public OpenGLShader(string filepath)
+    {
+        var shaderSources = ReadShaderFile(filepath);
+
+        var vertexShader = CompileShader(GLConstants.GL_VERTEX_SHADER, shaderSources[ShaderType.Vertex]);
+        var fragmentShader = CompileShader(GLConstants.GL_FRAGMENT_SHADER, shaderSources[ShaderType.Fragment]);
+
         ShaderProgram = CreateShaderProgram(vertexShader, fragmentShader);
+
+        GetActiveUniforms();
     }
 
     private uint ShaderProgram { get; }
@@ -86,5 +81,56 @@ internal sealed class OpenGLShader : IShader
     public void Bind()
     {
         GL.UseProgram(ShaderProgram);
+    }
+
+    private void GetActiveUniforms()
+    {
+        var output = default(int);
+        GL.GetProgramiv(ShaderProgram, GLConstants.GL_ACTIVE_UNIFORMS, ref output);
+        var activeUniformsCount = output;
+        _uniformLocations = new Dictionary<string, uint>(activeUniformsCount);
+
+        for (uint i = 0; i < activeUniformsCount; i++)
+        {
+            GL.GetActiveUniform(ShaderProgram, i, 128, out _, out _, out _, out string name);
+
+            var location = GL.GetUniformLocation(ShaderProgram, name);
+
+            _uniformLocations[name] = location;
+        }
+
+        Console.WriteLine(activeUniformsCount);
+        //Logger.Information($"Loaded shader '{shaderName}' with {activeUniformsCount} active uniforms");
+    }
+
+    private IDictionary<ShaderType, string> ReadShaderFile(string filepath)
+    {
+        var lines = File.ReadAllLines(filepath);
+        var shaderType = ShaderType.None;
+        IDictionary<ShaderType, string> shaderSources = new Dictionary<ShaderType, string>();
+
+        var shaderSource = string.Empty;
+        foreach (var line in lines)
+        {
+            if (line.Contains(TYPE_KEYWORD))
+            {
+                if (!string.IsNullOrWhiteSpace(shaderSource))
+                {
+                    shaderSources[shaderType] = shaderSource;
+                    shaderSource = string.Empty;
+                }
+
+                var type = line.Substring(TYPE_KEYWORD.Length + 1, line.Length - (TYPE_KEYWORD.Length + 1));
+                type = string.Concat(type[0].ToString().ToUpper(), type.AsSpan(1));
+                shaderType = (ShaderType)Enum.Parse(typeof(ShaderType), type);
+                shaderSources.Add(shaderType, "");
+                continue;
+            }
+
+            shaderSource += line + "\n";
+        }
+
+        shaderSources[shaderType] = shaderSource;
+        return shaderSources;
     }
 }

@@ -21,4 +21,5 @@ public interface IGraphicsFactory
     IIndexBuffer CreateIndexBuffer(uint[] indices, int count);
 
     IShader CreateShader();
+    IShader CreateShader(string filepath);
 }

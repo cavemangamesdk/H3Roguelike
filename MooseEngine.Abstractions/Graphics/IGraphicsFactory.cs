@@ -13,8 +13,12 @@ public interface IIndexBuffer : IBindable
 public interface IGraphicsFactory
 {
     IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout);
-    IVertexBuffer CreateVertexBuffer();
-    IIndexBuffer CreateIndexBuffer();
+
+    IVertexBuffer CreateVertexBuffer(float[] vertices);
+    IVertexBuffer CreateVertexBuffer(float[] vertices, int size);
+
+    IIndexBuffer CreateIndexBuffer(uint[] indices);
+    IIndexBuffer CreateIndexBuffer(uint[] indices, int count);
 
     IShader CreateShader();
 }

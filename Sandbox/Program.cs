@@ -47,8 +47,27 @@ class SandboxLayer : LayerBase
             new BufferElement("aPos", ShaderDataType.Float3)
         });
         Pipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
-        VertexBuffer = GraphicsFactory.CreateVertexBuffer();
-        IndexBuffer = GraphicsFactory.CreateIndexBuffer();
+
+        var vertices = new float[4 * 3] {
+             0.5f,  0.5f, 0.0f,  // top right
+             0.5f, -0.5f, 0.0f,  // bottom right
+            -0.5f, -0.5f, 0.0f,  // bottom left
+            -0.5f,  0.5f, 0.0f   // top left 
+        };
+
+        //var vertices = new float[3 * 3] {
+        //    -0.5f, -0.5f, 0.0f,
+        //     0.5f, -0.5f, 0.0f,
+        //     0.0f,  0.5f, 0.0f
+        //};
+
+        VertexBuffer = GraphicsFactory.CreateVertexBuffer(vertices);
+
+        var indices = new uint[] {  // note that we start from 0!
+            0, 1, 3,   // first triangle
+            1, 2, 3    // second triangle
+        };
+        IndexBuffer = GraphicsFactory.CreateIndexBuffer(indices);
     }
 
     public override void OnDetach()

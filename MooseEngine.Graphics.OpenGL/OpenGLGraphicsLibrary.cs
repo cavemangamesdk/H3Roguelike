@@ -1,44 +1,14 @@
-﻿using System.Drawing;
-
-namespace MooseEngine.Graphics.OpenGL;
+﻿namespace MooseEngine.Graphics.OpenGL;
 
 internal sealed class OpenGLGraphicsLibrary : IGraphicsFactory
 {
-    public IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout)
-    {
-        return new OpenGLPipeline(shader, bufferLayout);
-    }
+    public IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout) => new OpenGLPipeline(shader, bufferLayout);
 
-    public IVertexBuffer CreateVertexBuffer()
-    {
-        var vertices = new float[4 * 3] {
-             0.5f,  0.5f, 0.0f,  // top right
-             0.5f, -0.5f, 0.0f,  // bottom right
-            -0.5f, -0.5f, 0.0f,  // bottom left
-            -0.5f,  0.5f, 0.0f   // top left 
-        };
+    public IVertexBuffer CreateVertexBuffer(float[] vertices) => CreateVertexBuffer(vertices, vertices.Length * sizeof(float));
+    public IVertexBuffer CreateVertexBuffer(float[] vertices, int size) => new OpenGLVertexBuffer(vertices, size);
 
-        //var vertices = new float[3 * 3] {
-        //    -0.5f, -0.5f, 0.0f,
-        //     0.5f, -0.5f, 0.0f,
-        //     0.0f,  0.5f, 0.0f
-        //};
+    public IIndexBuffer CreateIndexBuffer(uint[] indices) => CreateIndexBuffer(indices, indices.Length);
+    public IIndexBuffer CreateIndexBuffer(uint[] indices, int count) => new OpenGLIndexBuffer(indices, 6);
 
-        return new OpenGLVertexBuffer(vertices, 12 * sizeof(float));
-    }
-
-    public IIndexBuffer CreateIndexBuffer()
-    {
-        var indices = new uint[] {  // note that we start from 0!
-            0, 1, 3,   // first triangle
-            1, 2, 3    // second triangle
-        };
-
-        return new OpenGLIndexBuffer(indices, 6);
-    }
-
-    public IShader CreateShader()
-    {
-        return new OpenGLShader();
-    }
+    public IShader CreateShader() => new OpenGLShader();
 }

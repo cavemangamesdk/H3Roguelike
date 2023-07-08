@@ -1,6 +1,4 @@
-﻿
-using GameV1.Entities.Creatures;
-using GameV1.Interfaces.Creatures;
+﻿using GameV1.Interfaces.Creatures;
 
 namespace GameV1.Interfaces.Items
 {

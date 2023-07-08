@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using MooseEngine.Platform.Glfw.Structs;
+﻿using MooseEngine.Platform.Glfw.Structs;
+using System.Runtime.InteropServices;
 
 namespace MooseEngine.Platform.Glfw;
 

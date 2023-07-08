@@ -1,12 +1,5 @@
-﻿using GameV1.Entities.Creatures;
-using GameV1.Interfaces.Creatures;
-using MooseEngine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MooseEngine.Interfaces;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameV1.Entities.Factories
 {

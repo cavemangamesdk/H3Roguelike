@@ -1,5 +1,4 @@
-﻿using GameV1.Entities;
-using GameV1.Entities.Creatures;
+﻿using GameV1.Entities.Creatures;
 
 namespace GameV1.SpriteLibraries
 {

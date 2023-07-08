@@ -1,5 +1,4 @@
 ﻿using MooseEngine.Pathfinding;
-using MooseEngine.Scenes;
 using MooseEngine.Utilities;
 using System.Numerics;
 

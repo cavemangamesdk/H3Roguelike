@@ -19,7 +19,7 @@ internal class SaveGamesPanel
 
     public SaveGamesPanel()
     {
-        var window = Application.Instance.Window;   
+        var window = Application.Instance.Window;
 
         var panelSize = new UIScreenCoords(PANEL_WIDTH, PANEL_HEIGHT);
         var panelPosition = new UIScreenCoords((window.Width - panelSize.X) / 2, (window.Height - panelSize.Y) / 2);
@@ -29,12 +29,12 @@ internal class SaveGamesPanel
         var buttonPosition = new UIScreenCoords((panelPosition.X + (panelSize.X / 2)) - buttonSize.X / 2, (panelPosition.Y + panelSize.Y));
         _backButton = new ButtonOptions(buttonPosition, buttonSize, "<-- Back");
     }
-    
+
     public void OnGUI(IUIRenderer UIRenderer)
     {
         UIRenderer.DrawPanel(_panelOptions);
 
-        if(UIRenderer.DrawButton(_backButton))
+        if (UIRenderer.DrawButton(_backButton))
         {
             OnBackButtonPressed?.Invoke();
         }

@@ -25,15 +25,15 @@ namespace GameV1.Entities.Creatures
         public bool IsDead { get { return Stats.Health <= 0; } }
 
         public Creature(
-            ICreatureSpecies species, 
-            IEnumerable<ICreatureSkill> skills, 
-            ICreatureStats stats, 
-            ICreatureInventory inventory, 
-            IEnumerable<ICreatureSpecies> enemySpecies, 
-            IEnumerable<ICreature> enemyCreatures, 
-            IDictionary<Vector2, ICreature> creaturesWithinPerceptionRange, 
-            ICreature? targetCreature, 
-            IItem? targetItem, 
+            ICreatureSpecies species,
+            IEnumerable<ICreatureSkill> skills,
+            ICreatureStats stats,
+            ICreatureInventory inventory,
+            IEnumerable<ICreatureSpecies> enemySpecies,
+            IEnumerable<ICreature> enemyCreatures,
+            IDictionary<Vector2, ICreature> creaturesWithinPerceptionRange,
+            ICreature? targetCreature,
+            IItem? targetItem,
             IBehaviorTree? behaviorTree)
         {
             Species = species;
@@ -91,7 +91,7 @@ namespace GameV1.Entities.Creatures
 
             if (Stats.Health < 0)
             {
-                Stats.Health = 0; 
+                Stats.Health = 0;
                 IsActive = false;
             }
             else if (Stats.Health > 0)

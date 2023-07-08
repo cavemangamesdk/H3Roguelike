@@ -1,14 +1,7 @@
-﻿using GameV1.Entities.Creatures;
-using GameV1.Interfaces.Items;
+﻿using GameV1.Interfaces.Items;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using MooseEngine.Scenes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameV1.Entities.Factories
 {
@@ -28,7 +21,7 @@ namespace GameV1.Entities.Factories
             }
             else if (newItem is ILightSource)
             {
-                
+
                 return newItem;
             }
 

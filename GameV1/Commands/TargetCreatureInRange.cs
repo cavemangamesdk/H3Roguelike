@@ -21,9 +21,9 @@ namespace GameV1.Commands
             var creatureLayer = Scene.GetLayer((int)EntityLayer.Creatures).ActiveEntities;
             var creaturesInRange = Scene.GetEntitiesWithinCircle(creatureLayer, Creature.Position, Creature.Stats.Perception);
 
-            if (creaturesInRange is null) 
-            { 
-                return NodeStates.Failure; 
+            if (creaturesInRange is null)
+            {
+                return NodeStates.Failure;
             }
 
             // Remove self
@@ -35,8 +35,8 @@ namespace GameV1.Commands
             if (creaturesInRange.Count == 0)
             {
                 Creature.TargetCreature = null;
-                
-               // Console.WriteLine($"TargetCreaturesWithinRange found nothing.");
+
+                // Console.WriteLine($"TargetCreaturesWithinRange found nothing.");
 
                 return NodeStates.Failure;
             }
@@ -44,7 +44,7 @@ namespace GameV1.Commands
             {
                 Creature.TargetCreature = (ICreature?)creaturesInRange.Values.FirstOrDefault();
 
-               // Console.WriteLine($"TargetCreaturesWithinRange found {Creature?.TargetCreature?.Name}");
+                // Console.WriteLine($"TargetCreaturesWithinRange found {Creature?.TargetCreature?.Name}");
 
                 return NodeStates.Success;
             }

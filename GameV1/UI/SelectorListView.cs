@@ -28,7 +28,7 @@ internal class SelectorListView : IUIElement
 
     public void OnGUI(IUIRenderer UIRenderer)
     {
-        if(_items == default)
+        if (_items == default)
         {
             return;
         }

@@ -13,17 +13,17 @@ public class ButtonOptions : TextOptions
     {
     }
 
-    public ButtonOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment, 
-        Color lineColor, Color backgroundColor, 
-        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor, 
-        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor, 
-        Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor, 
-        bool interactable) 
-        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment, 
-            lineColor, backgroundColor, 
-            normalColor, focusedColor, pressedColor, disabledColor, 
-            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor, 
-            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor, 
+    public ButtonOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment,
+        Color lineColor, Color backgroundColor,
+        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor,
+        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
+        Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
+        bool interactable)
+        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment,
+            lineColor, backgroundColor,
+            normalColor, focusedColor, pressedColor, disabledColor,
+            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor,
+            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor,
             interactable)
     {
     }

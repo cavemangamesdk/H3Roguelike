@@ -5,7 +5,6 @@ using GameV1.Interfaces.Items;
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
-using GameV1.UI;
 
 namespace GameV1.Commands
 {
@@ -19,7 +18,7 @@ namespace GameV1.Commands
             Scene = scene;
             Creature = creature;
         }
-        
+
         public override NodeStates Execute()
         {
             //if (Creature.Inventory.Inventory.HasEmptySlots == false)
@@ -40,7 +39,7 @@ namespace GameV1.Commands
             if (interfaces.Contains(typeof(IContainer)) == true)
             {
                 var containerAtPosition = (IContainer)itemAtPosition;
-                
+
                 // Is container empty?
                 if (containerAtPosition.IsEmpty == true)
                 {
@@ -54,16 +53,16 @@ namespace GameV1.Commands
                     //Console.WriteLine($"{Creature.Name} picked up content of {containerAtPosition.Name}");
                     //Console.WriteLine(Creature.Inventory.ToString());
                     //Console.WriteLine(Creature.Inventory.Inventory.ToString());
-                   // Console.WriteLine($"{Creature.Name} picked up content of {containerAtPosition.Name}");
-                   // Console.WriteLine(Creature.Inventory.ToString());
-                   // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                    // Console.WriteLine($"{Creature.Name} picked up content of {containerAtPosition.Name}");
+                    // Console.WriteLine(Creature.Inventory.ToString());
+                    // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                     // Remove container from scene if temporary and empty
                     if (containerAtPosition.IsEmpty == true && containerAtPosition.Type == ContainerType.PileOfItems)
                     {
                         itemLayer.DeactivateEntity(containerAtPosition);
                     }
-                    
+
                     return NodeStates.Success;
                 }
             }
@@ -72,19 +71,19 @@ namespace GameV1.Commands
                 // Attempt to add item to Creature inventory
                 var result = Creature.Inventory.Inventory.AddItemToFirstEmptySlot(itemAtPosition);
 
-                if (result == false) 
+                if (result == false)
                 {
 
                     //Console.WriteLine($"{Creature.Name} failed to pick up {itemAtPosition.Name}");
                     //Console.WriteLine(Creature.Inventory.ToString());
                     //Console.WriteLine(Creature.Inventory.Inventory.ToString());
-                   // Console.WriteLine($"{Creature.Name} failed to pick up {itemAtPosition.Name}");
-                   // Console.WriteLine(Creature.Inventory.ToString());
-                   // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                    // Console.WriteLine($"{Creature.Name} failed to pick up {itemAtPosition.Name}");
+                    // Console.WriteLine(Creature.Inventory.ToString());
+                    // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
-                    return NodeStates.Failure; 
+                    return NodeStates.Failure;
                 }
-                else if(result == true)
+                else if (result == true)
                 {
                     // Remove item from ItemLayer
                     itemLayer.ActiveEntities.Remove(itemAtPosition.Position);
@@ -92,9 +91,9 @@ namespace GameV1.Commands
                     //Console.WriteLine($"{Creature.Name} picked up {itemAtPosition.Name}");
                     //Console.WriteLine(Creature.Inventory.ToString());
                     //Console.WriteLine(Creature.Inventory.Inventory.ToString());
-                   // Console.WriteLine($"{Creature.Name} picked up {itemAtPosition.Name}");
-                   // Console.WriteLine(Creature.Inventory.ToString());
-                   // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                    // Console.WriteLine($"{Creature.Name} picked up {itemAtPosition.Name}");
+                    // Console.WriteLine(Creature.Inventory.ToString());
+                    // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                     return NodeStates.Success;
                 }

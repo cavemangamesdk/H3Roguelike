@@ -29,7 +29,7 @@
         public static IEnumerable<InputOptions>? Handle()
         {
             var input = new List<InputOptions>();
-            
+
             foreach (var keyInput in KeyInputs)
             {
                 switch (keyInput.Key.KeyModifier)

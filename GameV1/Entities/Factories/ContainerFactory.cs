@@ -1,12 +1,7 @@
 ﻿using GameV1.Entities.Containers;
 using GameV1.Interfaces.Containers;
 using MooseEngine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameV1.Entities.Factories
 {
@@ -16,8 +11,8 @@ namespace GameV1.Entities.Factories
         public static IContainer? CreateContainer(ContainerType type, IEntityLayer entityLayer, Vector2 position)
         {
             IContainer? newContainer = entityLayer.ActivateOrCreateEntity<Container>(position);
-            
-            if(type == ContainerType.Stationary)
+
+            if (type == ContainerType.Stationary)
             {
 
                 return newContainer;

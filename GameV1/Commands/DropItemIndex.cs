@@ -6,7 +6,6 @@ using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using GameV1.UI;
 using MooseEngine.Utilities;
 
 namespace GameV1.Commands
@@ -51,9 +50,9 @@ namespace GameV1.Commands
             // Does inventory item exist?
             if (inventoryItem is null)
             {
-               // Console.WriteLine($"{Creature.Name} tried to drop an item that doesn't exist.");
-               // Console.WriteLine(Creature.Inventory.ToString());
-               // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                // Console.WriteLine($"{Creature.Name} tried to drop an item that doesn't exist.");
+                // Console.WriteLine(Creature.Inventory.ToString());
+                // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                 return NodeStates.Failure;
             }
@@ -72,9 +71,9 @@ namespace GameV1.Commands
                 if (tempContainer.AddItemToFirstEmptySlot(inventoryItem) == true)
                 {
                     itemLayer.ActiveEntities.Add(tempContainer.Position, tempContainer);
-                   // Console.WriteLine($"{Creature.Name} dropped {inventoryItem.Name}");
-                   // Console.WriteLine(Creature.Inventory.ToString());
-                   // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                    // Console.WriteLine($"{Creature.Name} dropped {inventoryItem.Name}");
+                    // Console.WriteLine(Creature.Inventory.ToString());
+                    // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                     return NodeStates.Success;
                 }
@@ -97,9 +96,9 @@ namespace GameV1.Commands
                         // Attempt to add item to ItemLayer
                         itemLayer.ActiveEntities.Remove(itemAtPosition.Position);
                         itemLayer.ActiveEntities.Add(tempContainer.Position, tempContainer);
-                       // Console.WriteLine($"{Creature.Name} dropped {inventoryItem.Name}");
-                       // Console.WriteLine(Creature.Inventory.ToString());
-                       // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                        // Console.WriteLine($"{Creature.Name} dropped {inventoryItem.Name}");
+                        // Console.WriteLine(Creature.Inventory.ToString());
+                        // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                         return NodeStates.Success;
                     }
@@ -107,9 +106,9 @@ namespace GameV1.Commands
                     {
                         // Put item back into inventory
                         Creature.Inventory.Inventory.AddItemToFirstEmptySlot(inventoryItem);
-                       // Console.WriteLine($"{Creature.Name} failed to drop {inventoryItem.Name}");
-                       // Console.WriteLine(Creature.Inventory.ToString());
-                       // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                        // Console.WriteLine($"{Creature.Name} failed to drop {inventoryItem.Name}");
+                        // Console.WriteLine(Creature.Inventory.ToString());
+                        // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                         return NodeStates.Failure;
                     }
@@ -126,7 +125,7 @@ namespace GameV1.Commands
                         {
                             var textureCoordsIndex = Randomizer.RandomInt(0, LootTextures.Count - 1);
                             var textureCoords = LootTextures.ElementAt(textureCoordsIndex);
-                            
+
                             containerAtPosition.SpriteCoords = textureCoords;
                             // Console.WriteLine($"{Creature.Name} dropped {inventoryItem.Name} into {containerAtPosition.Name}");
                             // Console.WriteLine(Creature.Inventory.ToString());
@@ -139,9 +138,9 @@ namespace GameV1.Commands
                     else
                     {
                         Creature.Inventory.Inventory.AddItemToFirstEmptySlot(inventoryItem);
-                       // Console.WriteLine($"{Creature.Name} failed to drop {inventoryItem.Name}");
-                       // Console.WriteLine(Creature.Inventory.ToString());
-                       // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                        // Console.WriteLine($"{Creature.Name} failed to drop {inventoryItem.Name}");
+                        // Console.WriteLine(Creature.Inventory.ToString());
+                        // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                         return NodeStates.Failure;
                     }

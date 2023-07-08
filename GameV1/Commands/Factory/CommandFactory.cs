@@ -88,7 +88,7 @@ namespace GameV1.Commands.Factory
                     {
                         var slotIndex = i == 0 ? 9 : i - 1;
 
-                        if (inputs.Contains((InputOptions) i))
+                        if (inputs.Contains((InputOptions)i))
                         {
                             return new PickUpItemIndex(scene, (ICreature)entity, slotIndex);
                         }

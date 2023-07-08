@@ -4,7 +4,7 @@ namespace GameV1.UI;
 
 internal class UIColors
 {
- 
+
     internal class StatsPanel
     {
 

@@ -2,7 +2,7 @@
 
 public class SliderOptions : TextOptions
 {
-	private readonly static Color DEFAULT_SLIDER_COLOR = new Color(151, 232, 255, 255);
+    private readonly static Color DEFAULT_SLIDER_COLOR = new Color(151, 232, 255, 255);
     private readonly static int DEFAULT_TEXT_PADDING = 2;
 
     public SliderOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, TextAlignment textAlignment, int minValue, int maxValue, bool interactable = true)
@@ -31,20 +31,20 @@ public class SliderOptions : TextOptions
     }
 
     public SliderOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment,
-		Color lineColor, Color backgroundColor, 
-		Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor,
-		Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
-		Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
-		int textPadding, int maxValue, int minValue, bool interactable)
-		: base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment, 
-			lineColor, backgroundColor,
-			normalColor, focusedColor, pressedColor, disabledColor, 
-			textNormalColor, textFocusedColor, textPressedColor, textDisabledColor, 
-			borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor, interactable)
+        Color lineColor, Color backgroundColor,
+        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor,
+        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
+        Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
+        int textPadding, int maxValue, int minValue, bool interactable)
+        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment,
+            lineColor, backgroundColor,
+            normalColor, focusedColor, pressedColor, disabledColor,
+            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor,
+            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor, interactable)
     {
-		TextPadding = textPadding;
-		MaxValue = maxValue;
-		MinValue = minValue;
+        TextPadding = textPadding;
+        MaxValue = maxValue;
+        MinValue = minValue;
     }
 
     public int TextPadding { get; set; }

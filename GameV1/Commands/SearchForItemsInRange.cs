@@ -28,7 +28,7 @@ namespace GameV1.Commands
 
             if (itemsWithinRange.Count == 0)
             {
-               // Console.WriteLine("SearchForItemsInRange found nothing.");
+                // Console.WriteLine("SearchForItemsInRange found nothing.");
 
                 return NodeStates.Failure;
             }

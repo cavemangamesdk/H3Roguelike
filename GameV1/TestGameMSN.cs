@@ -10,7 +10,6 @@ using GameV1.Entities.Weapons;
 using GameV1.Interfaces;
 using GameV1.Interfaces.Creatures;
 using GameV1.Interfaces.Items;
-using GameV1.Interfaces.Weapons;
 using GameV1.UI;
 using GameV1.UI.Components;
 using GameV1.WorldGeneration;
@@ -23,7 +22,6 @@ using MooseEngine.Interfaces;
 using MooseEngine.Pathfinding;
 using MooseEngine.Scenes;
 using MooseEngine.Utilities;
-using System.Buffers;
 using System.Numerics;
 using static MooseEngine.BehaviorTree.BehaviorTreeFactory;
 
@@ -72,8 +70,8 @@ internal class TestGameMSN : IGame
         // Spawn world
         WorldGenerator.GenerateWorld(80085, ref _scene);
 
-       // Console.WriteLine(new Vector2(62, 57) * Constants.DEFAULT_ENTITY_SIZE);
-       // Console.WriteLine(_scene.GetClosestValidPosition((int)EntityLayer.Creatures, new Vector2(62, 57) * Constants.DEFAULT_ENTITY_SIZE, (int)EntityLayer.NonWalkableTiles));
+        // Console.WriteLine(new Vector2(62, 57) * Constants.DEFAULT_ENTITY_SIZE);
+        // Console.WriteLine(_scene.GetClosestValidPosition((int)EntityLayer.Creatures, new Vector2(62, 57) * Constants.DEFAULT_ENTITY_SIZE, (int)EntityLayer.NonWalkableTiles));
 
         var itemLayer = _scene.AddLayer<ItemBase>(EntityLayer.Items);
         var creatureLayer = _scene.AddLayer<Creature>(EntityLayer.Creatures);
@@ -172,7 +170,7 @@ internal class TestGameMSN : IGame
         {
             var campDwellingOrc = CreatureFactory.CreateCreature<Creature>(_scene, (int)EntityLayer.Creatures, CreatureSpecies.Orc, "Orc", new Coords2D(), WorldGenerator._structurePositions[i] * Constants.DEFAULT_ENTITY_SIZE, (int)EntityLayer.NonWalkableTiles);
 
-            
+
         }
 
         // Druid chasing player
@@ -330,28 +328,28 @@ internal class TestGameMSN : IGame
         //btrees.Add(guard_br_Tree);
 
         // Key bindings
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_UP,    KeyModifier = KeyModifier.KeyPressed }, InputOptions.UpAction);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_DOWN,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.DownAction);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_LEFT,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.LeftAction);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_UP, KeyModifier = KeyModifier.KeyPressed }, InputOptions.UpAction);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_DOWN, KeyModifier = KeyModifier.KeyPressed }, InputOptions.DownAction);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_LEFT, KeyModifier = KeyModifier.KeyPressed }, InputOptions.LeftAction);
         InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_RIGHT, KeyModifier = KeyModifier.KeyPressed }, InputOptions.RightAction);
-        
+
         InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_SPACE, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Idle);
-       
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_A,     KeyModifier = KeyModifier.KeyPressed }, InputOptions.All);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_E,     KeyModifier = KeyModifier.KeyPressed }, InputOptions.AutoEquip);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_I,     KeyModifier = KeyModifier.KeyDown },    InputOptions.PickUpItemIndex); // <-- Notice the KeyDown modifier
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_Q,     KeyModifier = KeyModifier.KeyDown },    InputOptions.ItemDropIndex);    
-        
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_ZERO,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.Zero);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_ONE,   KeyModifier = KeyModifier.KeyPressed }, InputOptions.One);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_TWO,   KeyModifier = KeyModifier.KeyPressed }, InputOptions.Two);
+
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_A, KeyModifier = KeyModifier.KeyPressed }, InputOptions.All);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_E, KeyModifier = KeyModifier.KeyPressed }, InputOptions.AutoEquip);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_I, KeyModifier = KeyModifier.KeyDown }, InputOptions.PickUpItemIndex); // <-- Notice the KeyDown modifier
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_Q, KeyModifier = KeyModifier.KeyDown }, InputOptions.ItemDropIndex);
+
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_ZERO, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Zero);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_ONE, KeyModifier = KeyModifier.KeyPressed }, InputOptions.One);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_TWO, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Two);
         InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_THREE, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Three);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_FOUR,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.Four);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_FIVE,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.Five);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_SIX,   KeyModifier = KeyModifier.KeyPressed }, InputOptions.Six);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_FOUR, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Four);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_FIVE, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Five);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_SIX, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Six);
         InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_SEVEN, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Seven);
         InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_EIGHT, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Eight);
-        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_NINE,  KeyModifier = KeyModifier.KeyPressed }, InputOptions.Nine);
+        InputHandler.Add(new KeyStroke() { Keycode = Keycode.KEY_NINE, KeyModifier = KeyModifier.KeyPressed }, InputOptions.Nine);
 
     }
 
@@ -418,7 +416,7 @@ internal class TestGameMSN : IGame
             }
         }
 
-        if(Input.IsKeyPressed(Keycode.KEY_P))
+        if (Input.IsKeyPressed(Keycode.KEY_P))
         {
             _showDebugPanel = !_showDebugPanel;
         }

@@ -26,15 +26,15 @@ public class PanelOptions : TextOptions
 
     public PanelOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment,
         Color lineColor, Color backgroundColor,
-        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor, 
-        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor, 
-        Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor, 
-        int statusBarHeight, Color headerNormalColor, Color headerDisabledColor, Color headerTextNormalColor, Color headerTextDisabledColor, bool interactable = true) 
-        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment, 
-            lineColor, backgroundColor, 
-            normalColor, focusedColor, pressedColor, disabledColor, 
-            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor, 
-            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor, 
+        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor,
+        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
+        Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
+        int statusBarHeight, Color headerNormalColor, Color headerDisabledColor, Color headerTextNormalColor, Color headerTextDisabledColor, bool interactable = true)
+        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment,
+            lineColor, backgroundColor,
+            normalColor, focusedColor, pressedColor, disabledColor,
+            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor,
+            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor,
             interactable)
     {
         StatusBarHeight = statusBarHeight;

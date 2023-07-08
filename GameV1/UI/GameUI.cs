@@ -1,5 +1,4 @@
-﻿using GameV1.Entities;
-using GameV1.Interfaces.Creatures;
+﻿using GameV1.Interfaces.Creatures;
 using MooseEngine.Core;
 using MooseEngine.Graphics;
 using MooseEngine.Graphics.UI;
@@ -43,11 +42,11 @@ internal class GameUI : IUIElement
 
     public void OnGUI(IUIRenderer UIRenderer)
     {
-        if(UIRenderer.DrawButton(_backToMenuButton))
+        if (UIRenderer.DrawButton(_backToMenuButton))
         {
             BackToMenuButtonClicked?.Invoke();
         }
-        
+
         _consolePanel.OnGUI(UIRenderer);
         _statsPanel.OnGUI(UIRenderer);
     }

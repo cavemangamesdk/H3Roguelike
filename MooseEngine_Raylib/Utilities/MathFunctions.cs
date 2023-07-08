@@ -65,7 +65,7 @@ public static class MathFunctions
 
         return true;
     }
-    
+
     public static bool IsOverlappingAABB(Vector2 positionA, int sizeAX, int sizeAY, Vector2 positionB, int sizeBX, int sizeBY)
     {
         var aLft = positionA.X - sizeAX;

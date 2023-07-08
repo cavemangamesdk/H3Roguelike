@@ -1,7 +1,6 @@
 ﻿using GameV1.Interfaces.Containers;
 using GameV1.Interfaces.Creatures;
 using GameV1.Interfaces.Weapons;
-using GameV1.UI;
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
@@ -51,9 +50,9 @@ namespace GameV1.Commands
                 // remove weapon from inventory and add to weapon slot
                 weaponSlot.Add((IWeapon?)Creature.Inventory.Inventory.RemoveItem(inventoryWeapon));
 
-               // Console.WriteLine($"{Creature.Name} equipped {weaponSlot.Item?.Name} as {weaponSlot.Name}");
-               // Console.WriteLine(Creature.Inventory.ToString());
-               // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                // Console.WriteLine($"{Creature.Name} equipped {weaponSlot.Item?.Name} as {weaponSlot.Name}");
+                // Console.WriteLine(Creature.Inventory.ToString());
+                // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                 return NodeStates.Success;
             }
@@ -74,9 +73,9 @@ namespace GameV1.Commands
                     // add old weapon to inventory
                     Creature.Inventory.Inventory.AddItemToFirstEmptySlot(temp);
 
-                   // Console.WriteLine($"{Creature.Name} equipped {weaponSlot.Item.Name} as {weaponSlot.Name}");
-                   // Console.WriteLine(Creature.Inventory.ToString());
-                   // Console.WriteLine(Creature.Inventory.Inventory.ToString());
+                    // Console.WriteLine($"{Creature.Name} equipped {weaponSlot.Item.Name} as {weaponSlot.Name}");
+                    // Console.WriteLine(Creature.Inventory.ToString());
+                    // Console.WriteLine(Creature.Inventory.Inventory.ToString());
 
                     return NodeStates.Success;
                 }

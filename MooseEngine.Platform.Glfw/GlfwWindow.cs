@@ -67,7 +67,7 @@ public sealed class GlfwWindow : IWindow
 
     public void Dispose()
     {
-        if(GlfwWindowPtr != IntPtr.Zero)
+        if (GlfwWindowPtr != IntPtr.Zero)
         {
             Glfw.DestroyWindow(GlfwWindowPtr);
             GlfwWindowPtr = IntPtr.Zero;

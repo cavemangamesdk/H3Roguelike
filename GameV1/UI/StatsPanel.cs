@@ -4,7 +4,6 @@ using MooseEngine.Graphics;
 using MooseEngine.Graphics.UI;
 using MooseEngine.Graphics.UI.Options;
 using MooseEngine.Utilities;
-using System.Numerics;
 //using System.Drawing;
 
 namespace GameV1.UI;
@@ -275,7 +274,7 @@ internal class StatsPanel
         for (int i = 0; i < INVENTORY_SIZE; i++)
         {
             UIRenderer.DrawImage(_inventoryOptions[i]);
-           UIRenderer.DrawImage(_inventoryItemsOptions[i]);
+            UIRenderer.DrawImage(_inventoryItemsOptions[i]);
         }
 
         // Equipment
@@ -319,7 +318,7 @@ internal class StatsPanel
         _equippedItemsOptions[4].Coords = (Coords2D)(FootWearWeaponCoords is not null ? FootWearWeaponCoords : defaultTexture);
 
     }
-    
+
     static int s_Focus = 0;
     static int s_ScrollIndex = 0;
     private SelectorListView _selectorListView;

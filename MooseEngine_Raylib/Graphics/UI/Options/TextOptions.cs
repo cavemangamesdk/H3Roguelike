@@ -39,7 +39,7 @@ public class TextOptions : UIOptionsBase
     {
     }
 
-    public TextOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment, 
+    public TextOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment,
         Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor, bool interactable = true)
         : this(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment,
           DEFAULT_LINE_COLOR, DEFAULT_BACKGROUND_COLOR,
@@ -54,10 +54,10 @@ public class TextOptions : UIOptionsBase
         Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
         Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
         bool interactable = true)
-        : base(position, size, 
-            lineColor, backgroundColor, 
-            normalColor, focusedColor, pressedColor, disabledColor, 
-            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor, 
+        : base(position, size,
+            lineColor, backgroundColor,
+            normalColor, focusedColor, pressedColor, disabledColor,
+            borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor,
             borderWidth, interactable)
     {
         Text = text;

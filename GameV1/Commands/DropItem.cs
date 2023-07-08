@@ -4,7 +4,6 @@ using GameV1.Interfaces.Items;
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
-using GameV1.UI;
 
 namespace GameV1.Commands
 {
@@ -35,7 +34,7 @@ namespace GameV1.Commands
 
                 // Attempt to add item to ItemLayer
                 itemLayer.ActiveEntities.Add(Item.Position, Item);
-               // Console.WriteLine($"{Creature.Name} dropped {Item.Name}");
+                // Console.WriteLine($"{Creature.Name} dropped {Item.Name}");
                 return NodeStates.Success;
 
 
@@ -49,7 +48,7 @@ namespace GameV1.Commands
                 if (container.HasEmptySlots == true)
                 {
                     container.AddItemToFirstEmptySlot(Item);
-                   // Console.WriteLine($"{Creature.Name} dropped {Item.Name} into {container.Name}");
+                    // Console.WriteLine($"{Creature.Name} dropped {Item.Name} into {container.Name}");
                     return NodeStates.Success;
                 }
 

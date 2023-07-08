@@ -10,16 +10,16 @@ public class ScrollbarOptions : TextOptions
     protected readonly static int DEFAULT_SCROLL_SPEED = 12;
     protected readonly static int DEFAULT_SCROLL_BAR_WIDTH = 12;
 
-    public ScrollbarOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment, 
-        Color lineColor, Color backgroundColor, 
-        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor, 
-        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor, 
+    public ScrollbarOptions(UIScreenCoords position, UIScreenCoords size, string text, int fontSize, float textSpacing, int borderWidth, int padding, TextAlignment textAlignment,
+        Color lineColor, Color backgroundColor,
+        Color normalColor, Color focusedColor, Color pressedColor, Color disabledColor,
+        Color textNormalColor, Color textFocusedColor, Color textPressedColor, Color textDisabledColor,
         Color borderNormalColor, Color borderFocusedColor, Color borderPressedColor, Color borderDisabledColor,
-        bool arrowsVisible, int arrowsSize, int scrollSliderPadding, int scrollSliderSize, int scrollPadding, int scrollSpeed, bool interactable = true) 
-        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment, 
-            lineColor, backgroundColor, 
-            normalColor, focusedColor, pressedColor, disabledColor, 
-            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor, 
+        bool arrowsVisible, int arrowsSize, int scrollSliderPadding, int scrollSliderSize, int scrollPadding, int scrollSpeed, bool interactable = true)
+        : base(position, size, text, fontSize, textSpacing, borderWidth, padding, textAlignment,
+            lineColor, backgroundColor,
+            normalColor, focusedColor, pressedColor, disabledColor,
+            textNormalColor, textFocusedColor, textPressedColor, textDisabledColor,
             borderNormalColor, borderFocusedColor, borderPressedColor, borderDisabledColor,
             interactable)
     {

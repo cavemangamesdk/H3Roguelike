@@ -19,8 +19,8 @@
         //
         public static CreatureOccupations Guard { get { return new CreatureOccupations("Guard"); } } // Protects given area against enemies and critters
         public static CreatureOccupations Knight { get { return new CreatureOccupations("Knight"); } } // Stronger version og Guard
-        
-        
+
+
         //
         public static CreatureOccupations Peasant { get { return new CreatureOccupations("Peasant"); } }
         public static CreatureOccupations Miller { get { return new CreatureOccupations("Miller"); } }
@@ -32,7 +32,7 @@
         public static CreatureOccupations Torturer { get { return new CreatureOccupations("Torturer"); } }
         public static CreatureOccupations Warlock { get { return new CreatureOccupations("Warlock"); } }
         public static CreatureOccupations Warrior { get { return new CreatureOccupations("Warrior"); } }
-        
+
         public static CreatureOccupations Mercenary { get { return new CreatureOccupations("Mercenary"); } }
         public static CreatureOccupations Assasin { get { return new CreatureOccupations("Assasin"); } }
         public static CreatureOccupations Archer { get { return new CreatureOccupations("Archer"); } }

@@ -1,7 +1,6 @@
 ﻿using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
-using MooseEngine.Utilities;
 using System.Numerics;
 
 namespace GameV1.Commands
@@ -45,7 +44,7 @@ namespace GameV1.Commands
 
             var entityLayer = (int)EntityLayer.Creatures;
             var tileLayer = (int)EntityLayer.NonWalkableTiles;
-            
+
             var isMoveValid = Scene.TryMoveEntity(entityLayer, Entity, m_nextPosition, tileLayer);
 
             return isMoveValid ? NodeStates.Running : NodeStates.Failure;

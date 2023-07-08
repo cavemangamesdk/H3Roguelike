@@ -2,12 +2,7 @@
 using MooseEngine.BehaviorTree;
 using MooseEngine.Core;
 using MooseEngine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameV1.Commands
 {
@@ -24,15 +19,15 @@ namespace GameV1.Commands
             Creature = creature;
             CreaturesInRange = new Dictionary<Vector2, ICreature>();
         }
-        
+
         public override NodeStates Execute()
         {
             var creatureLayer = Scene.GetLayer((int)EntityLayer.Creatures).ActiveEntities;
-            
+
             CreaturesInRange = Scene.GetEntitiesWithinCircle<ICreature>(creatureLayer, Creature.Position, Creature.Stats.Perception);
 
             // null check
-            if(CreaturesInRange is null) { return NodeStates.Failure; }
+            if (CreaturesInRange is null) { return NodeStates.Failure; }
 
             // Remove self
             if (CreaturesInRange.ContainsKey(Creature.Position))
@@ -44,7 +39,7 @@ namespace GameV1.Commands
             {
                 Creature.CreaturesWithinPerceptionRange.Clear();
 
-               // Console.WriteLine($"InspectCreaturesWithinRange found nothing.");
+                // Console.WriteLine($"InspectCreaturesWithinRange found nothing.");
 
                 return NodeStates.Failure;
             }
@@ -52,11 +47,11 @@ namespace GameV1.Commands
             {
                 Creature.CreaturesWithinPerceptionRange = CreaturesInRange;
 
-               // Console.WriteLine($"InspectCreaturesWithinRange found:");
+                // Console.WriteLine($"InspectCreaturesWithinRange found:");
 
                 foreach (var creature in Creature.CreaturesWithinPerceptionRange)
                 {
-                   // Console.WriteLine(creature.Value.Name);
+                    // Console.WriteLine(creature.Value.Name);
                 }
 
                 return NodeStates.Success;

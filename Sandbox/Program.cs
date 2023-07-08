@@ -29,7 +29,7 @@ class SandboxApplication : ApplicationBase
 
 class Renderer2DTestLayer : LayerBase
 {
-    public Renderer2DTestLayer(IRenderer renderer, IRenderer2D renderer2D) 
+    public Renderer2DTestLayer(IRenderer renderer, IRenderer2D renderer2D)
         : base("Renderer2D Test Layer")
     {
         Renderer = renderer;

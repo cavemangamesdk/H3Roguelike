@@ -1,5 +1,4 @@
 ﻿using MooseEngine.Events;
-using MooseEngine.Graphics;
 
 namespace MooseEngine;
 

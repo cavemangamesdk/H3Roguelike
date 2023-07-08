@@ -12,7 +12,7 @@ public class EntityLayer<TEntity> : IEntityLayer<TEntity> where TEntity : class,
     public TEntityType ActivateOrCreateEntity<TEntityType>(Vector2 position) where TEntityType : class, IEntity, new()
     {
         TEntityType? entity = GetFirstInactiveEntityOfType<TEntityType>();
-        
+
         if (entity != null)
         {
             entity.Position = position;
@@ -44,7 +44,7 @@ public class EntityLayer<TEntity> : IEntityLayer<TEntity> where TEntity : class,
         }
         return false;
     }
-    
+
     public bool ActivateEntity(IEntity entity)
     {
         if (InactiveEntities.Contains(entity) == true && ActiveEntities.ContainsKey(entity.Position) == false)

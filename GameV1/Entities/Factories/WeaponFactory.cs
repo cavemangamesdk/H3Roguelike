@@ -1,17 +1,8 @@
-﻿using GameV1.Commands;
-using GameV1.Entities.Weapons;
-using GameV1.Interfaces.Weapons;
+﻿using GameV1.Interfaces.Weapons;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using MooseEngine.Scenes;
 using MooseEngine.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace GameV1.Entities.Factories
 {
@@ -46,11 +37,11 @@ namespace GameV1.Entities.Factories
 
         //    newWeapon.Name = meleeWeaponSpriteCoords.ElementAt(spriteNum).Key;
         //    newWeapon.SpriteCoords = meleeWeaponSpriteCoords.ElementAt(spriteNum).Value;
-            
+
         //    return newWeapon;
         //}
 
-        
+
         public static IWeapon? CreateWeapon<TWeapon>(IScene scene, int entityLayerNum, Vector2 position, params int[] collisionLayers) where TWeapon : class, IWeapon, new()
         {
             IDictionary<string, Coords2D> meleeWeaponSpriteCoords = new Dictionary<string, Coords2D>()
@@ -100,12 +91,12 @@ namespace GameV1.Entities.Factories
                 newWeapon.MaxDamage = newWeapon.MinDamage + Randomizer.RandomInt(0, 100 - newWeapon.MinDamage);
                 newWeapon.ArmorPenetrationFlat = Randomizer.RandomInt(0, 100);
                 newWeapon.ArmorPenetrationChance = Randomizer.RandomInt(0, 100);
-                
+
                 var spriteNum = Randomizer.RandomInt(0, meleeWeaponSpriteCoords.Count - 1);
 
                 newWeapon.Name = meleeWeaponSpriteCoords.ElementAt(spriteNum).Key;
                 newWeapon.SpriteCoords = meleeWeaponSpriteCoords.ElementAt(spriteNum).Value;
-                
+
                 return newWeapon;
             }
             else if (newWeapon is IThrowingWeapon)

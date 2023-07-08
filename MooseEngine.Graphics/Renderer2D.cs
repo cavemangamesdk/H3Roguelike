@@ -2,8 +2,6 @@
 using MooseEngine.Mathematics;
 using MooseEngine.Mathematics.Matrixes;
 using MooseEngine.Mathematics.Vectors;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MooseEngine.Graphics;
 
@@ -106,9 +104,9 @@ internal sealed class Renderer2D : IRenderer2D
         Data.CameraUniformBuffer = GraphicsFactory.CreateUniformBuffer(128, 0);
 
         Data.QuadVertexPositions[0] = new Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
-        Data.QuadVertexPositions[1] = new Vector4( 0.5f, -0.5f, 0.0f, 1.0f);
-        Data.QuadVertexPositions[2] = new Vector4( 0.5f,  0.5f, 0.0f, 1.0f);
-        Data.QuadVertexPositions[3] = new Vector4(-0.5f,  0.5f, 0.0f, 1.0f);
+        Data.QuadVertexPositions[1] = new Vector4(0.5f, -0.5f, 0.0f, 1.0f);
+        Data.QuadVertexPositions[2] = new Vector4(0.5f, 0.5f, 0.0f, 1.0f);
+        Data.QuadVertexPositions[3] = new Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
     }
 
     public void BeginScene(ICamera? camera)
@@ -147,7 +145,7 @@ internal sealed class Renderer2D : IRenderer2D
 
     public void DrawQuad(Vector2 position, Vector2 size, Vector4 color)
     {
-        if(Data?.QuadIndexCount >= Renderer2DCapabilities.MaxIndices)
+        if (Data?.QuadIndexCount >= Renderer2DCapabilities.MaxIndices)
         {
             NextBatch();
         }
@@ -156,7 +154,7 @@ internal sealed class Renderer2D : IRenderer2D
 
         for (int i = 0; i < 4; i++)
         {
-            
+
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform * Data.QuadVertexPositions[i];
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = color;
         }

@@ -3,8 +3,6 @@ using MooseEngine.Core;
 using MooseEngine.Graphics;
 using MooseEngine.Graphics.UI;
 using MooseEngine.Graphics.UI.Options;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace GameV1.UI.Components;
 
@@ -121,7 +119,7 @@ internal class LoginFormComponent
         if (UIRenderer.DrawButton(_loginButtonOptions))
         {
             _providedNoCredentials = string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password);
-            if(_providedNoCredentials)
+            if (_providedNoCredentials)
             {
                 _wrongCredentialsOptions.Text = "Please enter credentials!";
             }
@@ -129,7 +127,7 @@ internal class LoginFormComponent
             // TODO: Call web api...
             _providedInvalidCredentials = false;
             var user = _httpRequester.Post<User>("authenticate", new { Username = _username, Password = _password });
-            if(user == null || string.IsNullOrEmpty(user.Username))
+            if (user == null || string.IsNullOrEmpty(user.Username))
             {
                 _providedInvalidCredentials = true;
                 _wrongCredentialsOptions.Text = "Invalid user crendentials";

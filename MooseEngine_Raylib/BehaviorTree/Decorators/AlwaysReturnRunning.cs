@@ -12,7 +12,7 @@ namespace MooseEngine.BehaviorTree.Decorators
         public override NodeStates Evaluate()
         {
             Child?.Evaluate();
-            
+
             State = NodeStates.Running;
             return State;
         }

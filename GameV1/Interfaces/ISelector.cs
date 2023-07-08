@@ -11,7 +11,7 @@ namespace GameV1.Interfaces
         int SelectedEntityIndex { get; set; }
 
         void AddEntities(IDictionary<Vector2, ICreature> entities);
-        
+
         void SelectNextEntity();
     }
 }

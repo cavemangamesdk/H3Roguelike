@@ -22,12 +22,12 @@ public static class Input
     {
         return InputAPI!.IsKeyDown(keycode);
     }
-    
+
     public static bool IsKeyReleased(Keycode keycode)
     {
         return InputAPI!.IsKeyReleased(keycode);
     }
-    
+
     public static bool IsKeyUp(Keycode keycode)
     {
         return InputAPI!.IsKeyUp(keycode);

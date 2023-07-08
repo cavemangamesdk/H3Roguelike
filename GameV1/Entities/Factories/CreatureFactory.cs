@@ -1,17 +1,10 @@
 ﻿using GameV1.Entities.Creatures;
 using GameV1.Entities.Weapons;
 using GameV1.Interfaces.Creatures;
-using GameV1.Interfaces.Weapons;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using MooseEngine.Scenes;
 using MooseEngine.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameV1.Entities.Factories
 {
@@ -70,7 +63,7 @@ namespace GameV1.Entities.Factories
             newCreature.Stats.Perception = Randomizer.RandomInt(20, 100);
             newCreature.Stats.Strength = Randomizer.RandomInt(20, 100);
             newCreature.Stats.Toughness = Randomizer.RandomInt(20, 100);
-            
+
             // Inventory
             newCreature.Inventory.DefaultWeapon = defaultWeapons[species];
 

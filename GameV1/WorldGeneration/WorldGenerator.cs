@@ -25,7 +25,7 @@ namespace GameV1.WorldGeneration
 
             _overWorld = ProceduralAlgorithms.GeneratePerlinNoiseMap(world.WorldWidth, world.WorldHeight, Constants.DEFAULT_ENTITY_SIZE, world.WorldSeed);
             _structurePositions.Add(world.StartPos);
-            
+
             _orcCamp01Data = StructureCreator.LoadStructure(@"..\..\..\Resources\CSV\OrcCamp01.csv");
             _orcCamp02Data = StructureCreator.LoadStructure(@"..\..\..\Resources\CSV\OrcCamp02.csv");
             _orcCamp03Data = StructureCreator.LoadStructure(@"..\..\..\Resources\CSV\OrcCamp03.csv");

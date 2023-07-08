@@ -110,7 +110,7 @@ public class Scene : Disposeable, IScene
         // TODO: Performance check on lambda vs LINQ vs long-hand for loop.
         return entities.ContainsKey(position) ? entities[position] : default;
     }
-    
+
     public Vector2 GetRandomValidPosition(IDictionary<Vector2, IEntity> entities)
     {
         return entities.ElementAt(Randomizer.RandomInt(0, entities.Count - 1)).Key;
@@ -270,7 +270,7 @@ public class Scene : Disposeable, IScene
 
     protected override void DisposeManagedState()
     {
-        for(int i = 0; i < _entityLayers.Count; i++)
+        for (int i = 0; i < _entityLayers.Count; i++)
         {
             _entityLayers[i].ActiveEntities.Clear();
             _entityLayers[i].InactiveEntities.Clear();

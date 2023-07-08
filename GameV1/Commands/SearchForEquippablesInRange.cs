@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using GameV1.Interfaces;
 using GameV1.Interfaces.Creatures;
 using GameV1.Interfaces.Items;
 using MooseEngine.BehaviorTree;
@@ -27,16 +26,16 @@ namespace GameV1.Commands
 
             if (itemsWithinRange == null || itemsWithinRange.Count == 0) { return NodeStates.Failure; }
 
-            foreach ( var item in itemsWithinRange)
+            foreach (var item in itemsWithinRange)
             {
                 if (item.Value.GetType().GetInterfaces().Contains(typeof(IContainer)))
                 {
                     Creature.TargetItem = (IItem?)item.Value;
-                    
+
                     return NodeStates.Success;
                 }
             }
-            
+
             return NodeStates.Failure;
 
             //var equippables = equippablesWithinRange.ToDictionary(item => item.Key, item => item.Value);

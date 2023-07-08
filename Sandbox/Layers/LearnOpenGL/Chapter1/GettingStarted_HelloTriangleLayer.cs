@@ -3,7 +3,7 @@ using MooseEngine.Graphics;
 
 class GettingStarted_HelloTriangleLayer : LayerBase
 {
-    public GettingStarted_HelloTriangleLayer(IRenderer renderer, IGraphicsFactory graphicsFactory) 
+    public GettingStarted_HelloTriangleLayer(IRenderer renderer, IGraphicsFactory graphicsFactory)
         : base("LearnOpenGL - GettingStarted-HelloTriangle")
     {
         Renderer = renderer;

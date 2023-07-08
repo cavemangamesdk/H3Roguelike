@@ -1,8 +1,6 @@
-﻿using GameV1.Entities.Factories;
-using MooseEngine.Core;
+﻿using MooseEngine.Core;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using System.Numerics;
 
 namespace GameV1;
 

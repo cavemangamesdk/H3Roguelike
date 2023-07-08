@@ -1,16 +1,8 @@
 ﻿using GameV1.Interfaces.Armors;
-using GameV1.Interfaces.Weapons;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using MooseEngine.Scenes;
 using MooseEngine.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace GameV1.Entities.Factories
 {

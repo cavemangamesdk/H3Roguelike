@@ -11,20 +11,17 @@ using GameV1.Interfaces;
 using GameV1.Interfaces.Creatures;
 using GameV1.Interfaces.Items;
 using GameV1.UI;
-using GameV1.UI.Components;
 using GameV1.WorldGeneration;
 using MooseEngine.BehaviorTree;
 using MooseEngine.BehaviorTree.Interfaces;
 using MooseEngine.Core;
 using MooseEngine.Graphics;
-using MooseEngine.Graphics.UI.Options;
 using MooseEngine.Interfaces;
 using MooseEngine.Pathfinding;
 using MooseEngine.Scenes;
 using MooseEngine.Scenes.Factories;
 using MooseEngine.Utilities;
 using System.Numerics;
-using static GameV1.UI.UIColors;
 using static MooseEngine.BehaviorTree.BehaviorTreeFactory;
 
 namespace GameV1;
@@ -96,7 +93,7 @@ internal class RogueliteGame : IGame
             _menuScene = null;
         }
         _gameState = GameState.Game;
-        
+
         _gameScene = sceneFactory.CreateScene();
 
         var seed = Randomizer.RandomInt(int.MinValue, int.MaxValue);
@@ -201,8 +198,8 @@ internal class RogueliteGame : IGame
         var lightSources = _gameScene.GetEntitiesOfType<LightSource>(itemLayer);
 
         var containers = _gameScene.GetEntitiesOfType<Container>(itemLayer);
-        
-        foreach(var container in containers)
+
+        foreach (var container in containers)
         {
             if (container.Value.IsEmpty == false)
             {
@@ -224,7 +221,7 @@ internal class RogueliteGame : IGame
                 (int)windowSize.X,
                 (int)windowSize.Y,
                 lightSource.Position,
-                lightSource.Range, 
+                lightSource.Range,
                 lightSource.Range);
 
             if (isOverlapping)
@@ -339,7 +336,7 @@ internal class RogueliteGame : IGame
 
             var patrolRange = Randomizer.RandomInt(4, 8);
 
-            var campDwellingOrcNode = 
+            var campDwellingOrcNode =
 
             Selector(
                 Serializer(

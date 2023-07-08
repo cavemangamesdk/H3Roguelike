@@ -10,7 +10,7 @@ namespace GameV1.Entities.Armors
         {
 
         }
-        
+
         public HeadGear(int durability, int maxValue, string name, Coords2D spriteCoords, Color colorTint)
             : base(durability, maxValue, name, spriteCoords, colorTint)
         {

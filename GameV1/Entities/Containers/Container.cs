@@ -2,7 +2,6 @@
 using GameV1.Interfaces.Containers;
 using GameV1.Interfaces.Items;
 using MooseEngine.Graphics;
-using GameV1.UI;
 using MooseEngine.Utilities;
 using System.Text;
 
@@ -67,7 +66,7 @@ namespace GameV1.Entities.Containers
 
             if (result == true)
             {
-               // Console.WriteLine($"{item.Name} added to {slot.Name}");
+                // Console.WriteLine($"{item.Name} added to {slot.Name}");
             }
             return result;
         }
@@ -88,7 +87,7 @@ namespace GameV1.Entities.Containers
         {
             var item = slot.Remove();
 
-           // Console.WriteLine($"{item.Name} removed from {slot.Name}");
+            // Console.WriteLine($"{item.Name} removed from {slot.Name}");
 
             return item;
         }
@@ -137,7 +136,7 @@ namespace GameV1.Entities.Containers
         {
             foreach (var slot in Slots)
             {
-                if(targetContainer.HasEmptySlots == false) { return false; }
+                if (targetContainer.HasEmptySlots == false) { return false; }
 
                 IItem? item = slot.Remove();
 

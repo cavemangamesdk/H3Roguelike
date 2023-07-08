@@ -1,14 +1,10 @@
 ﻿using GameV1.Entities.Containers;
-using GameV1.Entities.Creatures;
 using GameV1.Interfaces.Containers;
 using GameV1.Interfaces.Creatures;
 using GameV1.Interfaces.Items;
 using GameV1.Interfaces.Weapons;
-using MooseEngine.BehaviorTree;
 using MooseEngine.Graphics;
 using MooseEngine.Interfaces;
-using MooseEngine.Scenes;
-using GameV1.UI;
 using MooseEngine.Utilities;
 
 namespace GameV1
@@ -26,7 +22,7 @@ namespace GameV1
             defender.TakeDamage((int)(damage * damageModifier));
 
             // Print attack message
-           // Console.WriteLine($"{attacker.Name} attacks {defender.Name} with {attackWeapon.Name} for {damage} damage!");
+            // Console.WriteLine($"{attacker.Name} attacks {defender.Name} with {attackWeapon.Name} for {damage} damage!");
 
             // Print armor damage reduction message
             //if (defender.Inventory.BodyArmor.Item.DamageReduction > 0)
@@ -37,7 +33,7 @@ namespace GameV1
             if (defender.IsDead)
             {
                 KillCreature(scene, defender);
-               // Console.WriteLine($"{defender.Name} has died!");
+                // Console.WriteLine($"{defender.Name} has died!");
             }
         }
 
@@ -71,11 +67,11 @@ namespace GameV1
             lootableCorpse.AddItemToFirstEmptySlot(creature.Inventory.HeadGear.Item);
             lootableCorpse.AddItemToFirstEmptySlot(creature.Inventory.FootWear.Item);
 
-            if(lootableCorpse.IsEmpty == true) 
+            if (lootableCorpse.IsEmpty == true)
             {
                 creatureLayer.DeactivateEntity(creature);
-                
-                return; 
+
+                return;
             }
 
             IEntity? entityAtPosition = (IItem?)scene.GetEntityAtPosition(itemLayer.ActiveEntities, creature.Position);
@@ -97,7 +93,7 @@ namespace GameV1
                 {
                     // Entity is Item
                     var ItemAtPostition = (IItem)entityAtPosition;
-                    
+
                     // Add item to corpse
                     lootableCorpse.AddItemToFirstEmptySlot(ItemAtPostition);
 

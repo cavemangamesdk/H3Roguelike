@@ -3,7 +3,6 @@
 public interface IBindable
 {
     void Bind();
-    void Unbind();
 }
 
 public interface IGraphicsFactory

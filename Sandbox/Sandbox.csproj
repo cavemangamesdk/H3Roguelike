@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -10,8 +10,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Assets\Shaders\LearnOpenGL\Chapter1\GettingStarted_HelloTriangle.shader" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\MooseEngine.Abstractions\MooseEngine.Abstractions.csproj" />
 		<ProjectReference Include="..\MooseEngine\MooseEngine.csproj" />
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo $(AssembyName)" />
+		<Exec Command="XCOPY $(ProjectDir)Assets\**.** $(SolutionDir)Sandbox\$(OutDir)Assets\**.** /s /e" />
+	</Target>
 
 </Project>

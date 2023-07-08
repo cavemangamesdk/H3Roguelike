@@ -20,8 +20,13 @@ internal sealed class OpenGLUniformBuffer : IUniformBuffer
 
     private uint RendererID { get; set; }
 
-    public void SetData(float[] data, int size, int offset = 0)
+    public void SetData<T>(T data, int size, int offset = 0)
     {
+        if(data == null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+
         Bind();
 
         GL.BufferSubData(GLBufferBindingTarget.UniformBuffer, offset, size, data.GetMemoryAddress());

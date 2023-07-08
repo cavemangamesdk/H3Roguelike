@@ -2,5 +2,5 @@
 
 public interface IUniformBuffer : IBindable
 {
-    void SetData(float[] data, int size, int offset = 0);
+    void SetData<T>(T data, int size, int offset = 0);
 }

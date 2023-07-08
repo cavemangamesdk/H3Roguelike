@@ -13,6 +13,8 @@ internal sealed class OpenGLGraphicsLibrary : IGraphicsFactory
 
     public IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout) => new OpenGLPipeline(shader, bufferLayout);
 
+    public IVertexBuffer<TVertex> CreateVertexBuffer<TVertex>(TVertex[] vertices, int size) => new OpenGLVertexBuffer<TVertex>(vertices, size);
+
     public IVertexBuffer CreateVertexBuffer(float[] vertices) => CreateVertexBuffer(vertices, vertices.Length * sizeof(float));
     public IVertexBuffer CreateVertexBuffer(float[] vertices, int size) => new OpenGLVertexBuffer(vertices, size);
 

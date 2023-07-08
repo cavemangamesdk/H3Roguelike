@@ -27,6 +27,7 @@ public partial class GL
     public static void BufferData1(uint type, int size, object data, uint usage) => Native.glBufferData(type, size, data, usage);
     public static void BufferData(uint target, int size, float[] data, uint usage) => Native.glBufferData(target, size, data, usage);
     public static void BufferData(uint target, int size, uint[] data, uint usage) => Native.glBufferData(target, size, data, usage);
+    public static void BufferSubData1(uint target, int offset, int size, object data) => Native.glBufferSubData(target, offset, size, data);
     public static void BufferSubData(uint target, int offset, int size, float[] data) => Native.glBufferSubData(target, offset, size, data);
     public static void BindBufferBase(uint target, uint binding, uint buffer) => Native.glBindBufferBase(target, binding, buffer);
 

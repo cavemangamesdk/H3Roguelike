@@ -9,6 +9,8 @@ public interface IGraphicsFactory
 {
     IPipeline CreatePipeline(IShader shader, BufferLayout bufferLayout);
 
+    IVertexBuffer<TVertex> CreateVertexBuffer<TVertex>(TVertex[] vertices, int size);
+
     IVertexBuffer CreateVertexBuffer(float[] vertices);
     IVertexBuffer CreateVertexBuffer(float[] vertices, int size);
 

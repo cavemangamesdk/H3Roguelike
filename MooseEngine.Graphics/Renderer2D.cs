@@ -13,23 +13,17 @@ public interface IRenderer2D
     void EndScene();
 
     void DrawQuad(Vector2 position, Vector2 size, Vector4 color);
+    void DrawQuad(Vector3 position, Vector2 size, Vector4 color);
+    void DrawQuad(Matrix4 transform, Vector4 color);
 }
 
-internal sealed class Renderer2D : IRenderer2D
+internal sealed partial class Renderer2D : IRenderer2D
 {
     struct QuadVertex
     {
         public Vector3 Position;
         public Vector4 Color;
     };
-
-    private class Renderer2DCapabilities
-    {
-        public const int MaxQuads = 200000;
-        public const int MaxVertices = MaxQuads * 4;
-        public const int MaxIndices = MaxQuads * 6;
-        public const int MaxTextureSlots = 32; // 32 is the max for OpenGL, 16 for DirectX
-    }
 
     private class Renderer2DData
     {
@@ -47,8 +41,8 @@ internal sealed class Renderer2D : IRenderer2D
 
         internal struct CameraDataStruct
         {
-            public Matrix4 ProjectionMatrix;
-            public Matrix4 ViewMatrix;
+            internal Matrix4 ProjectionMatrix;
+            internal Matrix4 ViewMatrix;
         };
         public CameraDataStruct CameraData;
         public IUniformBuffer? CameraUniformBuffer { get; set; }
@@ -56,6 +50,7 @@ internal sealed class Renderer2D : IRenderer2D
 
     private static Renderer2DData? Data { get; set; }
     private static int QuadVertexSize;
+    private static int CameraDataStructSize;
 
     public Renderer2D(IRenderer renderer, IGraphicsFactory graphicsFactory)
     {
@@ -69,12 +64,13 @@ internal sealed class Renderer2D : IRenderer2D
     public void Initialize()
     {
         QuadVertexSize = System.Runtime.CompilerServices.Unsafe.SizeOf<QuadVertex>();
+        CameraDataStructSize = System.Runtime.CompilerServices.Unsafe.SizeOf<Renderer2DData.CameraDataStruct>();
 
         Data = new Renderer2DData();
 
-        var indices = new uint[Renderer2DCapabilities.MaxIndices];
+        var indices = new uint[Capabilities.MaxIndices];
         var offset = default(uint);
-        for (int i = 0; i < Renderer2DCapabilities.MaxIndices; i += 6)
+        for (int i = 0; i < Capabilities.MaxIndices; i += 6)
         {
             indices[i + 0] = offset + 0;
             indices[i + 1] = offset + 1;
@@ -87,7 +83,7 @@ internal sealed class Renderer2D : IRenderer2D
             offset += 4;
         }
 
-        Data.QuadIndexBuffer = GraphicsFactory.CreateIndexBuffer(indices, Renderer2DCapabilities.MaxIndices);
+        Data.QuadIndexBuffer = GraphicsFactory.CreateIndexBuffer(indices, Capabilities.MaxIndices);
 
         var shader = GraphicsFactory.CreateShader("Assets/Shaders/Renderer2D.glsl");
         var bufferLayout = new BufferLayout(new List<BufferElement>
@@ -97,9 +93,9 @@ internal sealed class Renderer2D : IRenderer2D
         });
         Data.QuadPipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
 
-        Data.QuadVertexBufferArr = new QuadVertex[Renderer2DCapabilities.MaxVertices];
+        Data.QuadVertexBufferArr = new QuadVertex[Capabilities.MaxVertices];
 
-        Data.QuadVertexBuffer = GraphicsFactory.CreateVertexBuffer(Renderer2DCapabilities.MaxVertices * QuadVertexSize, BufferUsage.DynamicDraw);
+        Data.QuadVertexBuffer = GraphicsFactory.CreateVertexBuffer(Capabilities.MaxVertices * QuadVertexSize, BufferUsage.DynamicDraw);
 
         Data.CameraUniformBuffer = GraphicsFactory.CreateUniformBuffer(128, 0);
 
@@ -111,8 +107,10 @@ internal sealed class Renderer2D : IRenderer2D
 
     public void BeginScene(ICamera? camera)
     {
-        Data?.CameraUniformBuffer?.SetData(camera.Projection.ToFloatArray(), 16 * sizeof(float));
-        Data?.CameraUniformBuffer?.SetData(camera.View.ToFloatArray(), 16 * sizeof(float), 16 * sizeof(float));
+        Data.CameraData.ProjectionMatrix = camera?.Projection ?? Matrix4.Identity;
+        Data.CameraData.ViewMatrix = camera?.View ?? Matrix4.Identity;
+
+        Data?.CameraUniformBuffer?.SetData(Data?.CameraData ?? default!, CameraDataStructSize);
 
         StartBatch();
     }
@@ -127,7 +125,7 @@ internal sealed class Renderer2D : IRenderer2D
         Data.QuadIndexCount = 0;
         Data.QuadVertexCount = 0;
 
-        Array.Clear(Data.QuadVertexBufferArr, 0, Renderer2DCapabilities.MaxVertices);
+        Array.Clear(Data.QuadVertexBufferArr, 0, Capabilities.MaxVertices);
     }
 
     public void EndScene()
@@ -143,14 +141,19 @@ internal sealed class Renderer2D : IRenderer2D
         Renderer.DrawGeometry(Data?.QuadPipeline, Data?.QuadVertexBuffer, Data?.QuadIndexBuffer, (int)(Data?.QuadIndexCount ?? 0));
     }
 
-    public void DrawQuad(Vector2 position, Vector2 size, Vector4 color)
+    public void DrawQuad(Vector2 position, Vector2 size, Vector4 color) => DrawQuad(new Vector3(position.X, position.Y, 0.0f), size, color);
+    public void DrawQuad(Vector3 position, Vector2 size, Vector4 color)
     {
-        if (Data?.QuadIndexCount >= Renderer2DCapabilities.MaxIndices)
+        var transform = Matrix4.Translate(new Vector3(position.X, position.Y, position.Z)) * Matrix4.Scale(new Vector3(size.X, size.Y, 1.0f));
+        DrawQuad(transform, color);
+    }
+
+    public void DrawQuad(Matrix4 transform, Vector4 color)
+    {
+        if (Data?.QuadIndexCount >= Capabilities.MaxIndices)
         {
             NextBatch();
         }
-
-        var transform = Matrix4.Translate(new Vector3(position.X, position.Y, 0.0f)) * Matrix4.Scale(new Vector3(size.X, size.Y, 0.0f));
 
         for (int i = 0; i < 4; i++)
         {

@@ -11,5 +11,9 @@ public class OpenGLGraphicsModule : Module
         builder.RegisterType<OpenGLRenderer>()
             .As<IRenderer>()
             .SingleInstance();
+
+        builder.RegisterType<OpenGLGraphicsLibrary>()
+            .As<IGraphicsFactory>()
+            .SingleInstance();
     }
 }

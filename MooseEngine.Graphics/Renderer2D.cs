@@ -1,6 +1,9 @@
 ﻿using MooseEngine.Graphics.Enumerations;
+using MooseEngine.Graphics.OpenGL;
 using MooseEngine.Mathematics.Matrixes;
 using MooseEngine.Mathematics.Vectors;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MooseEngine.Graphics;
 
@@ -22,6 +25,9 @@ internal sealed partial class Renderer2D : IRenderer2D
     {
         public Vector3 Position;
         public Vector4 Color;
+        public Vector2 TexCoord;
+        public float TextureIndex;
+        public float TilingFactor;
     };
 
     private class Renderer2DData
@@ -37,6 +43,12 @@ internal sealed partial class Renderer2D : IRenderer2D
         public int QuadVertexBufferCount;
 
         public Vector4[] QuadVertexPositions = new Vector4[4];
+        public Vector2[] QuadTexCoords = new Vector2[4];
+
+        public ITexture2D? WhiteTexture { get; set; }
+
+        public ITexture2D[] TextureSlots = Array.Empty<ITexture2D>();
+        public uint TextureSlotIndex;
 
         internal struct CameraDataStruct
         {
@@ -88,7 +100,10 @@ internal sealed partial class Renderer2D : IRenderer2D
         var bufferLayout = new BufferLayout(new List<BufferElement>
         {
             new BufferElement("POSITION", ShaderDataType.Float3),
-            new BufferElement("COLOR", ShaderDataType.Float4)
+            new BufferElement("COLOR", ShaderDataType.Float4),
+            new BufferElement("TEXCOORD", ShaderDataType.Float2),
+            new BufferElement("TEXTURE", ShaderDataType.Float),
+            new BufferElement("TILING_FACTOR", ShaderDataType.Float)
         });
         Data.QuadPipeline = GraphicsFactory.CreatePipeline(shader, bufferLayout);
 
@@ -98,10 +113,29 @@ internal sealed partial class Renderer2D : IRenderer2D
 
         Data.CameraUniformBuffer = GraphicsFactory.CreateUniformBuffer(128, 0);
 
+        Data.WhiteTexture = GraphicsFactory.CreateTexture2D(1, 1);
+        var whiteTextureDataPtr = ((uint)0xFFFFFFFF).GetMemoryAddress();
+        Data.WhiteTexture.SetData(whiteTextureDataPtr, sizeof(uint));
+
+        Data.TextureSlots = new ITexture2D[Capabilities.MaxTextureSlots];
+        Data.TextureSlotIndex = 1; // 0 = white texture
+        Data.TextureSlots[0] = Data.WhiteTexture;
+
+        int[] samplers = new int[Capabilities.MaxTextureSlots];
+        for (int i = 0; i < Capabilities.MaxTextureSlots; i++)
+        {
+            samplers[i] = i;
+        }
+
         Data.QuadVertexPositions[0] = new Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
         Data.QuadVertexPositions[1] = new Vector4(0.5f, -0.5f, 0.0f, 1.0f);
         Data.QuadVertexPositions[2] = new Vector4(0.5f, 0.5f, 0.0f, 1.0f);
         Data.QuadVertexPositions[3] = new Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
+
+        Data.QuadTexCoords[0] = new Vector2(0.0f, 0.0f);
+        Data.QuadTexCoords[1] = new Vector2(1.0f, 0.0f);
+        Data.QuadTexCoords[2] = new Vector2(1.0f, 1.0f);
+        Data.QuadTexCoords[3] = new Vector2(0.0f, 1.0f);
     }
 
     public void BeginScene(ICamera? camera)
@@ -137,6 +171,11 @@ internal sealed partial class Renderer2D : IRenderer2D
         var size = Data.QuadVertexCount * QuadVertexSize;
         Data?.QuadVertexBuffer?.SetData(Data.QuadVertexBufferArr, size);
 
+        for (uint i = 0; i < Data.TextureSlotIndex; i++)
+        {
+            Data.TextureSlots[i].Bind(i);
+        }
+
         Renderer.DrawGeometry(Data?.QuadPipeline, Data?.QuadVertexBuffer, Data?.QuadIndexBuffer, (int)Data.QuadIndexCount);
     }
 
@@ -149,6 +188,9 @@ internal sealed partial class Renderer2D : IRenderer2D
 
     public void DrawQuad(Matrix4 transform, Vector4 color)
     {
+        const float textureIndex = 0.0f;
+        const float tilingFactor = 1.0f;
+
         if (Data?.QuadIndexCount >= Capabilities.MaxIndices)
         {
             NextBatch();
@@ -159,6 +201,9 @@ internal sealed partial class Renderer2D : IRenderer2D
             // TODO: Figure out why transform doesn't contain Translation/Position ?
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform.Translation + (transform * Data.QuadVertexPositions[i]);
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = color;
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TexCoord = Data.QuadTexCoords[i];
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TextureIndex = textureIndex;
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TilingFactor = tilingFactor;
         }
 
         Data.QuadVertexCount += 4;

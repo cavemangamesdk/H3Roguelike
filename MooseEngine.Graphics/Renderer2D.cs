@@ -1,5 +1,4 @@
 ﻿using MooseEngine.Graphics.Enumerations;
-using MooseEngine.Mathematics;
 using MooseEngine.Mathematics.Matrixes;
 using MooseEngine.Mathematics.Vectors;
 
@@ -125,7 +124,7 @@ internal sealed partial class Renderer2D : IRenderer2D
         Data.QuadIndexCount = 0;
         Data.QuadVertexCount = 0;
 
-        Array.Clear(Data.QuadVertexBufferArr, 0, Capabilities.MaxVertices);
+        Array.Clear(Data.QuadVertexBufferArr, 0, Data.QuadVertexBufferArr.Length);
     }
 
     public void EndScene()
@@ -138,13 +137,13 @@ internal sealed partial class Renderer2D : IRenderer2D
         var size = Data.QuadVertexCount * QuadVertexSize;
         Data?.QuadVertexBuffer?.SetData(Data.QuadVertexBufferArr, size);
 
-        Renderer.DrawGeometry(Data?.QuadPipeline, Data?.QuadVertexBuffer, Data?.QuadIndexBuffer, (int)(Data?.QuadIndexCount ?? 0));
+        Renderer.DrawGeometry(Data?.QuadPipeline, Data?.QuadVertexBuffer, Data?.QuadIndexBuffer, (int)Data.QuadIndexCount);
     }
 
-    public void DrawQuad(Vector2 position, Vector2 size, Vector4 color) => DrawQuad(new Vector3(position.X, position.Y, 0.0f), size, color);
-    public void DrawQuad(Vector3 position, Vector2 size, Vector4 color)
+    public void DrawQuad(Vector2 position, Vector2 scale, Vector4 color) => DrawQuad(new Vector3(position.X, position.Y, 0.0f), scale, color);
+    public void DrawQuad(Vector3 position, Vector2 scale, Vector4 color)
     {
-        var transform = Matrix4.Translate(new Vector3(position.X, position.Y, position.Z)) * Matrix4.Scale(new Vector3(size.X, size.Y, 1.0f));
+        var transform = Matrix4.Translate(position) * Matrix4.Scale(new Vector3(scale.X, scale.Y, 1.0f));
         DrawQuad(transform, color);
     }
 
@@ -157,8 +156,7 @@ internal sealed partial class Renderer2D : IRenderer2D
 
         for (int i = 0; i < 4; i++)
         {
-
-            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform * Data.QuadVertexPositions[i];
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform.Translation + (transform * Data.QuadVertexPositions[i]);
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = color;
         }
 

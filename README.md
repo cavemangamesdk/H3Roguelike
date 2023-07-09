@@ -1,10 +1,4 @@
 # H3Roguelike
-### <span style="color:#C39BD3 ">Scrum roles:</span>
-
-Product Owner: Michael.</br>
-Developer: Victor.</br>
-Scrum Master: Pierre.
-
 ### <span style="color:#C39BD3 ">End Product:</span>
 
 Small procedurally generated Rogue-lite game.

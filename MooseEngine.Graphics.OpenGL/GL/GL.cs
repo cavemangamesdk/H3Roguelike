@@ -38,6 +38,8 @@ public partial class GL
     public static void BindTexture(uint target, uint texture) => Functions.glBindTexture(target, texture);
     public static void ActiveTexture(uint texture) => Native.glActiveTexture(texture);
     public static void TexImage2D(uint target, int level, uint internalFormat, int width, int height, int border, uint format, uint type, IntPtr data) => Functions.glTexImage2D(target, level, internalFormat, width, height, border, format, type, data);
+    public static void TextureStorage2D(uint texture, int levels, uint internalFormat, int width, int height) => Native.glTextureStorage2D(texture, levels, internalFormat, width, height);
+    public static void TextureSubImage2D(uint texture, int level, int xOffset, int yOffset, int width, int height, uint format, uint type, IntPtr data) => Native.glTextureSubImage2D(texture, level, xOffset, yOffset, width, height, format, type, data);
 
     public static void TexParameteri(uint target, uint pname, uint param) => Functions.glTexParameteri(target, pname, param);
 

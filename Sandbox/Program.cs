@@ -1,4 +1,5 @@
 ﻿using MooseEngine;
+using MooseEngine.Events;
 using MooseEngine.Graphics;
 using MooseEngine.Mathematics.Vectors;
 
@@ -64,5 +65,18 @@ class Renderer2DTestLayer : LayerBase
         Renderer2D.DrawQuad(Vector2.Zero, Vector2.One, Vector4.One);
 
         Renderer2D.EndScene();
+    }
+
+    public override void OnEvent(EventBase e)
+    {
+        var dispatcher = new EventDispatcher(e);
+        dispatcher.Dispatch<WindowResizeEvent>(OnWindowResizeEventFunc);
+    }
+
+    private bool OnWindowResizeEventFunc(WindowResizeEvent e)
+    {
+        Camera?.SetViewport(e.Width, e.Height);
+
+        return true;
     }
 }

@@ -156,6 +156,7 @@ internal sealed partial class Renderer2D : IRenderer2D
 
         for (int i = 0; i < 4; i++)
         {
+            // TODO: Figure out why transform doesn't contain Translation/Position ?
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform.Translation + (transform * Data.QuadVertexPositions[i]);
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = color;
         }

@@ -24,4 +24,5 @@ public interface IGraphicsFactory
     IUniformBuffer CreateUniformBuffer(int size, uint binding, BufferUsage bufferUsage = BufferUsage.StaticDraw);
 
     ITexture2D CreateTexture2D(string filepath);
+    ITexture2D CreateTexture2D(int width, int height);
 }

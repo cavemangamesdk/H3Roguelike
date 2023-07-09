@@ -28,6 +28,7 @@ internal sealed class OpenGLGraphicsLibrary : IGraphicsFactory
     public IUniformBuffer CreateUniformBuffer(int size, uint binding, BufferUsage bufferUsage) => new OpenGLUniformBuffer(size, binding, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
     public ITexture2D CreateTexture2D(string filepath) => new OpenGLTexture2D(ImageLoader, filepath);
+    public ITexture2D CreateTexture2D(int width, int height) => new OpenGLTexture2D(width, height);
 }
 
 public static class ObjectExtensions

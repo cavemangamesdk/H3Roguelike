@@ -7,4 +7,5 @@ public interface ITexture
 
 public interface ITexture2D : ITexture
 {
+    void SetData(IntPtr ptr, int size);
 }

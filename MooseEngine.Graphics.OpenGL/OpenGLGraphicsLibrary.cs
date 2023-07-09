@@ -43,6 +43,7 @@ public static class ObjectExtensions
         return obj.GetMemoryAddress().ToPointer();
     }
 
+    // TODO: Fix memory leak - Free GChandle somehow?!
     public static IntPtr GetMemoryAddress(this object obj)
     {
         var gcHandle = GCHandle.Alloc(obj, GCHandleType.Pinned);

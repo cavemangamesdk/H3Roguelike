@@ -20,7 +20,7 @@ internal sealed class OpenGLGraphicsLibrary : IGraphicsFactory
     public IVertexBuffer CreateVertexBuffer(float[] vertices, int size, BufferUsage bufferUsage) => new OpenGLVertexBuffer(vertices, size, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
     public IIndexBuffer CreateIndexBuffer(uint[] indices, BufferUsage bufferUsage) => CreateIndexBuffer(indices, indices.Length, bufferUsage);
-    public IIndexBuffer CreateIndexBuffer(uint[] indices, int count, BufferUsage bufferUsage) => new OpenGLIndexBuffer(indices, 6, OpenGLHelper.ToGLBufferUsage(bufferUsage));
+    public IIndexBuffer CreateIndexBuffer(uint[] indices, int count, BufferUsage bufferUsage) => new OpenGLIndexBuffer(indices, count, OpenGLHelper.ToGLBufferUsage(bufferUsage));
 
     public IShader CreateShader() => CreateShader("Assets/Shaders/LearnOpenGL/Chapter1/GettingStarted_HelloTriangle.shaderfile");
     public IShader CreateShader(string filepath) => new OpenGLShader(filepath);

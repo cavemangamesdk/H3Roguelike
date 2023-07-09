@@ -11,4 +11,9 @@
     <ProjectReference Include="..\MooseEngine.Extensions.Autofac\MooseEngine.Extensions.Autofac.csproj" />
   </ItemGroup>
 
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo $(AssembyName)" />
+		<Exec Command="XCOPY $(ProjectDir)libs\**.** $(SolutionDir)Sandbox\$(OutDir)libs\**.** /y /s /e" />
+	</Target>
+
 </Project>

@@ -27,6 +27,8 @@ public struct Matrix4 : IEquatable<Matrix4>
     public Vector4 Row2;
     public Vector4 Row3;
 
+    public Vector3 Translation => new Vector3(Row3.X, Row3.Y, Row3.Z);
+
     public static Matrix4 Zero => new(Vector4.Zero, Vector4.Zero, Vector4.Zero, Vector4.Zero);
     public static Matrix4 Identity => new(Vector4.XAxis, Vector4.YAxis, Vector4.ZAxis, Vector4.WAxis);
 
@@ -320,10 +322,15 @@ public struct Matrix4 : IEquatable<Matrix4>
     public Vector3 Multiply(Vector4 other)
     {
         return new Vector3(
-            Row0.X * other.X + Row1.X * other.Y + Row2.X * other.Z + Row3.X * other.W,
-            Row0.Y * other.X + Row1.Y * other.Y + Row2.Y * other.Z + Row3.Y * other.W,
-            Row0.Z * other.X + Row1.Z * other.Y + Row2.Z * other.Z + Row3.Z * other.W
-            );
+            (other.X * Row0.X) + (other.Y * Row0.Y) + (other.Z * Row0.Z) + (other.W * Row0.W),
+            (other.X * Row1.X) + (other.Y * Row1.Y) + (other.Z * Row1.Z) + (other.W * Row1.W),
+            (other.X * Row2.X) + (other.Y * Row2.Y) + (other.Z * Row2.Z) + (other.W * Row2.W));
+
+        //return new Vector3(
+        //    Row0.X * other.X + Row1.X * other.Y + Row2.X * other.Z + Row3.X * other.W,
+        //    Row0.Y * other.X + Row1.Y * other.Y + Row2.Y * other.Z + Row3.Y * other.W,
+        //    Row0.Z * other.X + Row1.Z * other.Y + Row2.Z * other.Z + Row3.Z * other.W
+        //    );
     }
     #endregion
 

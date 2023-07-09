@@ -1,4 +1,5 @@
 ﻿using MooseEngine.Graphics.OpenGL.Enumerations;
+using System.Runtime.InteropServices;
 
 namespace MooseEngine.Graphics.OpenGL;
 
@@ -26,14 +27,18 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
 
     public void Bind()
     {
-        GL.BindBuffer(GLConstants.GL_ARRAY_BUFFER, RendererId);
+        GL.BindBuffer(GLBufferBindingTarget.ArrayBuffer, RendererId);
     }
 
     public void SetData<T>(T[] vertices, int size)
     {
         Bind();
 
-        GL.BufferSubData(GLConstants.GL_ARRAY_BUFFER, 0, size, vertices.GetMemoryAddress());
+        var verticesPtr = vertices.GetMemoryAddress();
+
+        GL.BufferSubData(GLBufferBindingTarget.ArrayBuffer, 0, size, verticesPtr);
+
+        Marshal.FreeHGlobal(verticesPtr);
     }
 
     private uint CreateVertexBuffer()

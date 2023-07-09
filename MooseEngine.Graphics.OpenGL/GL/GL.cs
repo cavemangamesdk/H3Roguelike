@@ -8,6 +8,7 @@ public partial class GL
     public static void Clear(GLClearMask clearMask) => Clear((uint)clearMask);
     public static void Clear(uint mask) => Functions.glClear(mask);
     public static void ClearColor(float red, float green, float blue, float alpha) => Functions.glClearColor(red, green, blue, alpha);
+    public static void Viewport(int x, int y, int width, int height) => Functions.glViewport(x, y, width, height);
 
     public static void Enable(uint capability) => Functions.glEnable(capability);
 

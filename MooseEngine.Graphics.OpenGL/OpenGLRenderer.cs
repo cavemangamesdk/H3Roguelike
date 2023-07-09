@@ -10,6 +10,16 @@ internal sealed class OpenGLRenderer : IRenderer
         GL.ClearColor(0.8f, 0.2f, 0.3f, 1.0f);
     }
 
+    public void SetViewport(int width, int height)
+    {
+        SetViewport(0, 0, width, height);
+    }
+
+    public void SetViewport(int x, int y, int width, int height)
+    {
+        GL.Viewport(x, y, width, height);
+    }
+
     public void DrawGeometry(IPipeline? pipeline, IVertexBuffer? vertexBuffer)
     {
         // TODO: Throw if Pipeline or VertexBuffer is null!

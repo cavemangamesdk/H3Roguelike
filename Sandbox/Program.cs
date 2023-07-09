@@ -75,6 +75,8 @@ class Renderer2DTestLayer : LayerBase
 
     private bool OnWindowResizeEventFunc(WindowResizeEvent e)
     {
+        Renderer.SetViewport(e.Width, e.Height);
+
         Camera?.SetViewport(e.Width, e.Height);
 
         return true;

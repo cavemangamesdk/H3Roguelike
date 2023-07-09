@@ -38,7 +38,7 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
 
         GL.BufferSubData(GLBufferBindingTarget.ArrayBuffer, 0, size, verticesPtr);
 
-        Marshal.FreeHGlobal(verticesPtr);
+        //Marshal.FreeHGlobal(verticesPtr);
     }
 
     private uint CreateVertexBuffer()

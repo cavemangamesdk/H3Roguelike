@@ -24,24 +24,27 @@ class SandboxApplication : ApplicationBase
         //AttachLayer(new GettingStarted_HelloTriangleLayer(Renderer, GraphicsFactory));
         //AttachLayer(new GettingStarted_TexturesLayer(Renderer, GraphicsFactory));
         //AttachLayer(new CameraTestLayer(Window, Renderer, GraphicsFactory));
-        AttachLayer(new Renderer2DTestLayer(Renderer, Renderer2D));
+        AttachLayer(new Renderer2DTestLayer(Renderer, Renderer2D, GraphicsFactory));
     }
 }
 
 class Renderer2DTestLayer : LayerBase
 {
-    public Renderer2DTestLayer(IRenderer renderer, IRenderer2D renderer2D)
+    public Renderer2DTestLayer(IRenderer renderer, IRenderer2D renderer2D, IGraphicsFactory graphicsFactory)
         : base("Renderer2D Test Layer")
     {
         Renderer = renderer;
         Renderer2D = renderer2D;
+        GraphicsFactory = graphicsFactory;
     }
 
     private IRenderer Renderer { get; }
     private IRenderer2D Renderer2D { get; }
+    private IGraphicsFactory GraphicsFactory { get; }
 
     // Runtime
     private OrthographicCamera? Camera { get; set; }
+    private ITexture2D WoodenContainerTexture { get; set; }
 
     public override void OnAttach()
     {
@@ -49,6 +52,8 @@ class Renderer2DTestLayer : LayerBase
 
         Camera = new OrthographicCamera(10.0f);
         Camera.SetViewport(1024, 768);
+
+        WoodenContainerTexture = GraphicsFactory.CreateTexture2D("Assets/Textures/container.jpg");
     }
 
     public override void OnDetach()
@@ -59,6 +64,9 @@ class Renderer2DTestLayer : LayerBase
     {
         Renderer.Clear();
         Renderer2D.BeginScene(Camera);
+
+        Renderer2D.DrawQuad(new Vector3(0.0f, 0.0f, -0.5f), Vector2.One * 5.0f, WoodenContainerTexture, Vector4.One);
+        Renderer2D.DrawQuad(new Vector3(5.0f, 0.0f, -0.5f), Vector2.One * 5.0f, WoodenContainerTexture, Vector4.One);
 
         Renderer2D.DrawQuad(Vector2.One * 1.5f, Vector2.One * 2.0f, Vector4.YAxis);
         Renderer2D.DrawQuad(new Vector2(-3.0f, 0.0f), Vector2.One * 1.5f, Vector4.ZAxis);

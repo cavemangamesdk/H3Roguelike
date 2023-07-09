@@ -14,9 +14,13 @@ public interface IRenderer2D
     void BeginScene(ICamera? camera);
     void EndScene();
 
-    void DrawQuad(Vector2 position, Vector2 size, Vector4 color);
-    void DrawQuad(Vector3 position, Vector2 size, Vector4 color);
+    void DrawQuad(Vector2 position, Vector2 scale, Vector4 color);
+    void DrawQuad(Vector3 position, Vector2 scale, Vector4 color);
     void DrawQuad(Matrix4 transform, Vector4 color);
+
+    void DrawQuad(Vector2 position, Vector2 scale, ITexture2D texture, Vector4 tintColor, float tilingFactor = 1.0f);
+    void DrawQuad(Vector3 position, Vector2 scale, ITexture2D texture, Vector4 tintColor, float tilingFactor = 1.0f);
+    void DrawQuad(Matrix4 transform, ITexture2D texture, Vector4 tintColor, float tilingFactor = 1.0f);
 }
 
 internal sealed partial class Renderer2D : IRenderer2D
@@ -201,6 +205,53 @@ internal sealed partial class Renderer2D : IRenderer2D
             // TODO: Figure out why transform doesn't contain Translation/Position ?
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform.Translation + (transform * Data.QuadVertexPositions[i]);
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = color;
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TexCoord = Data.QuadTexCoords[i];
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TextureIndex = textureIndex;
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TilingFactor = tilingFactor;
+        }
+
+        Data.QuadVertexCount += 4;
+        Data.QuadIndexCount += 6;
+    }
+
+    public void DrawQuad(Vector2 position, Vector2 scale, ITexture2D texture, Vector4 tintColor, float tilingFactor) => DrawQuad(new Vector3(position.X, position.Y, 0.0f), scale, texture, tintColor, tilingFactor);
+    public void DrawQuad(Vector3 position, Vector2 scale, ITexture2D texture, Vector4 tintColor, float tilingFactor)
+    {
+        var transform = Matrix4.Scale(new Vector3(scale.X, scale.Y, 1.0f)) * Matrix4.Translate(position);
+        DrawQuad(transform, texture, tintColor, tilingFactor);
+    }
+
+    public void DrawQuad(Matrix4 transform, ITexture2D texture, Vector4 tintColor, float tilingFactor)
+    {
+        if (Data?.QuadIndexCount >= Capabilities.MaxIndices)
+        {
+            NextBatch();
+        }
+
+        float textureIndex = 0.0f;
+        if (texture != null)
+        {
+            for (int i = 1; i < Data.TextureSlotIndex; i++)
+            {
+                if (Data.TextureSlots[i] == texture)
+                {
+                    textureIndex = (float)i;
+                    break;
+                }
+            }
+            if (textureIndex == 0.0f)
+            {
+                textureIndex = (float)Data.TextureSlotIndex;
+                Data.TextureSlots[Data.TextureSlotIndex] = texture;
+                Data.TextureSlotIndex++;
+            }
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            // TODO: Figure out why transform doesn't contain Translation/Position ?
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Position = transform.Translation + (transform * Data.QuadVertexPositions[i]);
+            Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].Color = tintColor;
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TexCoord = Data.QuadTexCoords[i];
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TextureIndex = textureIndex;
             Data!.QuadVertexBufferArr[Data.QuadVertexCount + i].TilingFactor = tilingFactor;

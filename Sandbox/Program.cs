@@ -46,7 +46,7 @@ class Renderer2DTestLayer : LayerBase
     {
         Renderer2D.Initialize();
 
-        Camera = new OrthographicCamera(2.0f);
+        Camera = new OrthographicCamera(10.0f);
         Camera.SetViewport(1024, 768);
     }
 
@@ -59,6 +59,8 @@ class Renderer2DTestLayer : LayerBase
         Renderer.Clear();
         Renderer2D.BeginScene(Camera);
 
+        Renderer2D.DrawQuad(Vector2.One * 1.5f, Vector2.One * 2.0f, Vector4.YAxis);
+        Renderer2D.DrawQuad(new Vector2(-3.0f, 0.0f), Vector2.One * 1.5f, Vector4.ZAxis);
         Renderer2D.DrawQuad(Vector2.Zero, Vector2.One, Vector4.One);
 
         Renderer2D.EndScene();

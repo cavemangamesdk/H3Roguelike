@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MooseEngine.DependencyInjection;
 using MooseEngine.Extensions.DependencyInjection;
 
 namespace MooseEngine;

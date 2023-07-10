@@ -1,6 +1,6 @@
-﻿using MooseEngine.ECS.Entity;
+﻿using MooseEngine.ECS.Entities;
 
-namespace MooseEngine.ECS.Component;
+namespace MooseEngine.ECS.Components;
 
 public interface IComponent
 {

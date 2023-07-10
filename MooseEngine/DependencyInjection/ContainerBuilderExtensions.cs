@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using MooseEngine.ECS.Entity;
+using MooseEngine.ECS.Entities;
 
-namespace MooseEngine.Extensions.DependencyInjection;
+namespace MooseEngine.DependencyInjection;
 
 public static class ContainerBuilderExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using MooseEngine;
-using MooseEngine.ECS.Component;
-using MooseEngine.ECS.Entity;
+using MooseEngine.ECS.Components;
+using MooseEngine.ECS.Entities;
 using MooseEngine.Graphics;
 using MooseEngine.Mathematics.Matrixes;
 using MooseEngine.Mathematics.Vectors;

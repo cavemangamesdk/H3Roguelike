@@ -1,4 +1,4 @@
-﻿namespace MooseEngine.Extensions.DependencyInjection;
+﻿namespace MooseEngine.DependencyInjection;
 
 public class MooseEngineOptions
 {

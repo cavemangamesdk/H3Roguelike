@@ -1,7 +1,7 @@
 ﻿using MooseEngine.Mathematics.Matrixes;
 using MooseEngine.Mathematics.Vectors;
 
-namespace MooseEngine.ECS.Component;
+namespace MooseEngine.ECS.Components;
 
 public sealed class Transform : ComponentBase
 {

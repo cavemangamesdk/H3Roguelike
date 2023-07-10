@@ -15,4 +15,8 @@
     <ProjectReference Include="..\MooseEngine.Platform\MooseEngine.Platform.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ECS\Systems\" />
+  </ItemGroup>
+
 </Project>

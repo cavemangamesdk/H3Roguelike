@@ -1,7 +1,7 @@
-﻿using MooseEngine.ECS.Component;
+﻿using MooseEngine.ECS.Components;
 using System.Collections.ObjectModel;
 
-namespace MooseEngine.ECS.Entity;
+namespace MooseEngine.ECS.Entities;
 
 public interface IEntity
 {

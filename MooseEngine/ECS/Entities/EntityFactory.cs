@@ -1,4 +1,4 @@
-﻿namespace MooseEngine.ECS.Entity;
+﻿namespace MooseEngine.ECS.Entities;
 
 public interface IEntityFactory
 {

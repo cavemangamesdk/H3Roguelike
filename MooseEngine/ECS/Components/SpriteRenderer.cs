@@ -1,6 +1,6 @@
 ﻿using MooseEngine.Mathematics.Vectors;
 
-namespace MooseEngine.ECS.Component;
+namespace MooseEngine.ECS.Components;
 
 public sealed class SpriteRenderer : ComponentBase
 {

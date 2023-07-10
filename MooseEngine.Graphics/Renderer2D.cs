@@ -12,6 +12,7 @@ public interface IRenderer2D
     void Initialize();
 
     void BeginScene(ICamera? camera);
+    void BeginScene(ICamera? camera, Matrix4 cameraTransform);
     void EndScene();
 
     void DrawQuad(Vector2 position, Vector2 scale, Vector4 color);
@@ -147,6 +148,17 @@ internal sealed partial class Renderer2D : IRenderer2D
     {
         Data.CameraData.ProjectionMatrix = camera?.Projection ?? Matrix4.Identity;
         Data.CameraData.ViewMatrix = camera?.View ?? Matrix4.Identity;
+
+        Data?.CameraUniformBuffer?.SetData(Data?.CameraData ?? default!, CameraDataStructSize);
+
+        StartBatch();
+    }
+
+    public void BeginScene(ICamera? camera, Matrix4 cameraTransform)
+    {
+        Data.CameraData.ProjectionMatrix = camera?.Projection ?? Matrix4.Identity;
+        System.Numerics.Matrix4x4.Invert(cameraTransform, out var result);
+        Data.CameraData.ViewMatrix = (Matrix4)result;
 
         Data?.CameraUniformBuffer?.SetData(Data?.CameraData ?? default!, CameraDataStructSize);
 

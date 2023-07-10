@@ -8,6 +8,7 @@ public interface IEntity
     Guid Guid { get; }
     string Name { get; }
 
+    bool HasComponent<TComponent>() where TComponent : class, IComponent;
     TComponent? GetComponent<TComponent>() where TComponent : class, IComponent;
     TComponent AddComponent<TComponent>() where TComponent : class, IComponent, new();
 }
@@ -24,6 +25,12 @@ internal sealed class Entity : IEntity
     public string Name { get; set; }
 
     private ICollection<IComponent> Components { get; } = new Collection<IComponent>();
+
+    public bool HasComponent<TComponent>()
+        where TComponent : class, IComponent
+    {
+        return Components.OfType<TComponent>().Any();
+    }
 
     public TComponent? GetComponent<TComponent>()
          where TComponent : class, IComponent

@@ -10,9 +10,7 @@ public static class Engine
     {
         var containerBuilder = new ContainerBuilder();
 
-        containerBuilder.RegisterType<TApplication>()
-            .AsImplementedInterfaces()
-            .SingleInstance();
+        containerBuilder.RegisterCoreModule<TApplication>();
 
         containerBuilder.RegisterModule<PlatformModule>();
         containerBuilder.RegisterModule<GraphicsModule>();

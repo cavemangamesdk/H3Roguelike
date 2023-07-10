@@ -38,16 +38,9 @@ public static class ObjectExtensions
         return System.Runtime.CompilerServices.Unsafe.SizeOf<T>();
     }
 
-    public unsafe static void* GetRawMemoryAddress(this object obj)
+    public static GCHandle GetMemoryAddress(this object obj)
     {
-        return obj.GetMemoryAddress().ToPointer();
-    }
-
-    // TODO: Fix memory leak - Free GChandle somehow?!
-    public static IntPtr GetMemoryAddress(this object obj)
-    {
-        var gcHandle = GCHandle.Alloc(obj, GCHandleType.Pinned);
-        return gcHandle.AddrOfPinnedObject();
+        return GCHandle.Alloc(obj, GCHandleType.Pinned);
     }
 
     public static IntPtr GetMemoryAddress(byte[] bytes)

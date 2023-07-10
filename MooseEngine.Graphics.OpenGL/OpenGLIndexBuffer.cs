@@ -1,4 +1,5 @@
 ﻿using MooseEngine.Graphics.OpenGL.Enumerations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MooseEngine.Graphics.OpenGL;
 
@@ -13,7 +14,11 @@ internal sealed class OpenGLIndexBuffer : IIndexBuffer
         RendererId = ids[0];
         Bind();
 
-        GL.BufferData(GLBufferBindingTarget.ElementArrayBuffer, count * sizeof(uint), indices.GetMemoryAddress(), bufferUsage);
+        var handle = indices.GetMemoryAddress();
+
+        GL.BufferData(GLBufferBindingTarget.ElementArrayBuffer, count * sizeof(uint), handle.AddrOfPinnedObject(), bufferUsage);
+
+        handle.Free();
     }
 
     public int Count { get; }

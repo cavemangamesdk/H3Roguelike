@@ -29,7 +29,11 @@ internal sealed class OpenGLUniformBuffer : IUniformBuffer
 
         Bind();
 
-        GL.BufferSubData(GLBufferBindingTarget.UniformBuffer, offset, size, data.GetMemoryAddress());
+        var handle = data.GetMemoryAddress();
+
+        GL.BufferSubData(GLBufferBindingTarget.UniformBuffer, offset, size, handle.AddrOfPinnedObject());
+
+        handle.Free();
     }
 
     public void Bind()

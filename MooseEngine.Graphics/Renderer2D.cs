@@ -118,8 +118,9 @@ internal sealed partial class Renderer2D : IRenderer2D
         Data.CameraUniformBuffer = GraphicsFactory.CreateUniformBuffer(128, 0);
 
         Data.WhiteTexture = GraphicsFactory.CreateTexture2D(1, 1);
-        var whiteTextureDataPtr = ((uint)0xFFFFFFFF).GetMemoryAddress();
-        Data.WhiteTexture.SetData(whiteTextureDataPtr, sizeof(uint));
+        var whiteTextureDataHandle = ((uint)0xFFFFFFFF).GetMemoryAddress();
+        Data.WhiteTexture.SetData(whiteTextureDataHandle.AddrOfPinnedObject(), sizeof(uint));
+        whiteTextureDataHandle.Free();
 
         Data.TextureSlots = new ITexture2D[Capabilities.MaxTextureSlots];
         Data.TextureSlotIndex = 1; // 0 = white texture

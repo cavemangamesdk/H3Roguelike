@@ -1,5 +1,7 @@
-﻿using MooseEngine.Graphics.OpenGL.Enumerations;
+﻿using MooseEngine.Graphics.Enumerations;
+using MooseEngine.Graphics.OpenGL.Enumerations;
 using System.Runtime.InteropServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MooseEngine.Graphics.OpenGL;
 
@@ -20,7 +22,12 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
 
         Bind();
 
-        GL.BufferData(GLBufferBindingTarget.ArrayBuffer, size, vertices.GetMemoryAddress(), bufferUsage);
+        var handle = vertices.GetMemoryAddress();
+
+        GL.BufferData(GLBufferBindingTarget.ArrayBuffer, size, handle.AddrOfPinnedObject(), bufferUsage);
+
+        handle.Free();
+
     }
 
     private uint RendererId { get; }
@@ -34,11 +41,11 @@ internal sealed class OpenGLVertexBuffer : IVertexBuffer
     {
         Bind();
 
-        var verticesPtr = vertices.GetMemoryAddress();
+        var handle = vertices.GetMemoryAddress();
 
-        GL.BufferSubData(GLBufferBindingTarget.ArrayBuffer, 0, size, verticesPtr);
+        GL.BufferSubData(GLBufferBindingTarget.ArrayBuffer, 0, size, handle.AddrOfPinnedObject());
 
-        //Marshal.FreeHGlobal(verticesPtr);
+        handle.Free();
     }
 
     private uint CreateVertexBuffer()

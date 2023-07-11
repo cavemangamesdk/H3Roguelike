@@ -156,6 +156,7 @@ internal sealed partial class Renderer2D : IRenderer2D
 
     public void BeginScene(ICamera? camera, Matrix4 cameraTransform)
     {
+        // TODO: Fix this Invert hack... Maybe with should use System.Numerics mathemathics instead of our own?
         Data.CameraData.ProjectionMatrix = camera?.Projection ?? Matrix4.Identity;
         System.Numerics.Matrix4x4.Invert(cameraTransform, out var result);
         Data.CameraData.ViewMatrix = (Matrix4)result;

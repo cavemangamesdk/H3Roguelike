@@ -31,6 +31,8 @@ internal interface IExecutableApplication : IDisposable
 
 public abstract class ApplicationBase : IApplication, IExecutableApplication
 {
+    private float lastFrameTime = 0.0f;
+
     public ApplicationBase(IWindow window)
     {
         Window = window;
@@ -64,9 +66,13 @@ public abstract class ApplicationBase : IApplication, IExecutableApplication
     {
         while (IsRunning)
         {
+            float time = Window.GetTime();
+            float deltaTime = time - lastFrameTime;
+            lastFrameTime = time;
+
             foreach (var layer in LayerStack)
             {
-                layer.Update(0.0f);
+                layer.Update(deltaTime);
             }
 
             Window.Update();

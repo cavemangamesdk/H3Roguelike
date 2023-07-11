@@ -71,6 +71,11 @@ public sealed class GlfwWindow : IWindow, IGlfwNativeWindowHandle
         Glfw.PollEvents();
     }
 
+    public float GetTime()
+    {
+        return Glfw.GetTime();
+    }
+
     public void Dispose()
     {
         if (GlfwNativeWindowHandle != IntPtr.Zero)

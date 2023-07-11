@@ -15,4 +15,6 @@ public interface IWindow : IDisposable
 
     void Initialize();
     void Update();
+
+    float GetTime();
 }

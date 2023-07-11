@@ -16,6 +16,7 @@ public partial class Glfw
 
     public static void SwapBuffers(IntPtr windowHandlePtr) => Functions.glfwSwapBuffers(windowHandlePtr);
     public static void PollEvents() => Functions.glfwPollEvents();
+    public static float GetTime() => (float)Functions.glfwGetTime();
 
     // Inputs
     public static int GetKey(IntPtr windowHandlePtr, int keycode) => Functions.glfwGetKey(windowHandlePtr, keycode);

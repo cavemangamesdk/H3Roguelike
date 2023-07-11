@@ -84,7 +84,7 @@ class SceneTestLayer : LayerBase
         cameraTransform.Position = camPos;
 
         var cameraScript = cameraEntity.AddComponent<Script>();
-        cameraScript.AttachScriptReference<CameraScriptBehaviour>();
+        cameraScript.AttachScriptReference<CameraControllerScriptBehaviour>();
 
         var camera = cameraEntity.AddComponent<Camera>();
         camera.SceneCamera.SetViewport(1024, 768);
@@ -134,10 +134,16 @@ class SceneTestLayer : LayerBase
     }
 }
 
-internal class CameraScriptBehaviour : ScriptBehaviour
+internal class CameraControllerScriptBehaviour : ScriptBehaviour
 {
+    private Transform? transform;
+    private Vector2 velocity = Vector2.Zero;
+    private float speed = 1.0f;
+
     public override void Start()
     {
+        transform = Entity?.GetComponent<Transform>();
+
         Console.WriteLine("CameraScript.Start()");
     }
 
@@ -148,10 +154,26 @@ internal class CameraScriptBehaviour : ScriptBehaviour
 
     public override void Update(float deltaTime)
     {
-        if(Input.IsKeyPressed(Keycode.SPACE))
+        velocity = Vector2.Zero;
+
+        if (Input.IsKeyPressed(Keycode.A))
         {
-            Console.WriteLine("Space is pressed!");
+            velocity += -Vector2.XAxis * speed * deltaTime;
         }
-        Console.WriteLine($"CameraScript.Update({deltaTime})");
+        else if (Input.IsKeyPressed(Keycode.D))
+        {
+            velocity += Vector2.XAxis * speed * deltaTime;
+        }
+
+        if (Input.IsKeyPressed(Keycode.W))
+        {
+            velocity += Vector2.YAxis * speed * deltaTime;
+        }
+        else if (Input.IsKeyPressed(Keycode.S))
+        {
+            velocity += -Vector2.YAxis * speed * deltaTime;
+        }
+
+        transform.Position += velocity;
     }
 }

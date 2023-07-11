@@ -176,6 +176,7 @@ internal sealed partial class Renderer2D : IRenderer2D
         Data.QuadIndexCount = 0;
         Data.QuadVertexCount = 0;
 
+        // TODO: Find another way to clear BufferArray, Array.Clear takes about 70% of the frame time....
         Array.Clear(Data.QuadVertexBufferArr, 0, Data.QuadVertexBufferArr.Length);
     }
 

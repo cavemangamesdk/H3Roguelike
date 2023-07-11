@@ -1,6 +1,6 @@
 ﻿namespace MooseEngine.Platform.Glfw;
 
-internal sealed class GlfwInput
+internal sealed class GlfwInput : IInput
 {
     public GlfwInput(IGlfwNativeWindowHandle nativeWindowHandle)
     {

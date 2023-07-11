@@ -15,12 +15,14 @@ public interface IScene : IEntityFactory
 
 internal sealed class Scene : IScene
 {
-    public Scene(IRenderer2DSystem renderer2DSystem)
+    public Scene(IRenderer2DSystem renderer2DSystem, IScriptSystem scriptSystem)
     {
         Renderer2DSystem = renderer2DSystem;
+        ScriptSystem = scriptSystem;
     }
 
     private IRenderer2DSystem Renderer2DSystem { get; }
+    private IScriptSystem ScriptSystem { get; }
     private ICollection<IEntity> Entities { get; } = new Collection<IEntity>();
 
     public IEntity Create(string name = "New Entity")
@@ -31,19 +33,22 @@ internal sealed class Scene : IScene
         Entities.Add(entity);
 
         return entity;
-
     }
 
     public void OnRuntimeStart()
     {
+        ScriptSystem.Start(Entities);
     }
 
     public void OnRuntimeStop()
     {
+        ScriptSystem.Stop(Entities);
     }
 
     public void OnRuntimeUpdate(float deltaTime)
     {
+        ScriptSystem.Update(Entities, deltaTime);
+
         // TODO: Refactor
         var primaryCameraEntity = Entities.SingleOrDefault(entity => entity.GetComponent<Camera>()?.IsPrimary ?? false);
         if (primaryCameraEntity != default)

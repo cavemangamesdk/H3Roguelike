@@ -63,6 +63,9 @@ class SceneTestLayer : LayerBase
         camPos.X = 2.0f;
         cameraTransform.Position = camPos;
 
+        var cameraScript = cameraEntity.AddComponent<Script>();
+        cameraScript.AttachScriptReference<CameraScriptBehaviour>();
+
         var camera = cameraEntity.AddComponent<Camera>();
         camera.SceneCamera.SetViewport(1024, 768);
         camera.SceneCamera.SetOrthographic(5.0f, -1.0f, 1.0f);
@@ -94,5 +97,27 @@ class SceneTestLayer : LayerBase
         Renderer.Clear();
 
         Scene.OnRuntimeUpdate(deltaTime);
+    }
+}
+
+internal class CameraScriptBehaviour : ScriptBehaviour
+{
+    public override void Start()
+    {
+        Console.WriteLine("CameraScript.Start()");
+    }
+
+    public override void Stop()
+    {
+        Console.WriteLine("CameraScript.Stop()");
+    }
+
+    public override void Update(float deltaTime)
+    {
+        if(Input.IsKeyPressed(Keycode.SPACE))
+        {
+            Console.WriteLine("Space is pressed!");
+        }
+        Console.WriteLine($"CameraScript.Update({deltaTime})");
     }
 }

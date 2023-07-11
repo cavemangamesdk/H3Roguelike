@@ -1,5 +1,6 @@
 ﻿using MooseEngine;
 using MooseEngine.ECS.Components;
+using MooseEngine.Events;
 using MooseEngine.Graphics;
 using MooseEngine.Mathematics.Vectors;
 using MooseEngine.SceneManagement;
@@ -49,7 +50,7 @@ class SceneTestLayer : LayerBase
     private ISceneFactory SceneFactory { get; }
 
     // Runtime
-    private IScene Scene { get; set; }
+    private IScene? Scene { get; set; }
 
     public override void OnAttach()
     {
@@ -84,19 +85,33 @@ class SceneTestLayer : LayerBase
         spriteRenderer.Sprite = GraphicsFactory.CreateTexture2D("Assets/Textures/container.jpg");
         spriteRenderer.Color = new Vector4(0.2f, 0.4f, 0.8f, 1.0f);
 
-        Scene.OnRuntimeStart();
+        Scene?.OnRuntimeStart();
     }
 
     public override void OnDetach()
     {
-        Scene.OnRuntimeStop();
+        Scene?.OnRuntimeStop();
     }
 
     public override void Update(float deltaTime)
     {
         Renderer.Clear();
 
-        Scene.OnRuntimeUpdate(deltaTime);
+        Scene?.OnRuntimeUpdate(deltaTime);
+    }
+
+    public override void OnEvent(EventBase e)
+    {
+        var dispatcher = new EventDispatcher(e);
+        dispatcher.Dispatch<WindowResizeEvent>(OnWindowResizeEventFunc);
+    }
+
+    private bool OnWindowResizeEventFunc(WindowResizeEvent e)
+    {
+        Renderer.SetViewport(e.Width, e.Height);
+        Scene?.SetViewport(e.Width, e.Height);
+
+        return true;
     }
 }
 

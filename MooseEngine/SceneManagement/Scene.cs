@@ -11,6 +11,8 @@ public interface IScene : IEntityFactory
     void OnRuntimeStart();
     void OnRuntimeStop();
     void OnRuntimeUpdate(float deltaTime);
+
+    void SetViewport(int width, int height);
 }
 
 internal sealed class Scene : IScene
@@ -59,6 +61,21 @@ internal sealed class Scene : IScene
             if (primaryCamera != default)
             {
                 Renderer2DSystem.Render(primaryCamera, cameraTransform?.GetTransform() ?? Matrix4.Identity, Entities);
+            }
+        }
+    }
+
+    public void SetViewport(int width, int height)
+    {
+        var primaryCameraEntity = Entities.SingleOrDefault(entity => entity.GetComponent<Camera>()?.IsPrimary ?? false);
+        if (primaryCameraEntity != default)
+        {
+            var cameraTransform = primaryCameraEntity.GetComponent<Transform>();
+
+            var primaryCamera = primaryCameraEntity.GetComponent<Camera>()?.SceneCamera ?? default;
+            if (primaryCamera != default)
+            {
+                primaryCamera.SetViewport(width, height);
             }
         }
     }

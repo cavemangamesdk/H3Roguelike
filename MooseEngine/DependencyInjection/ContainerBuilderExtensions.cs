@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using MooseEngine.ECS.Entities;
 using MooseEngine.ECS.Systems;
+using MooseEngine.SceneManagement;
 
 namespace MooseEngine.DependencyInjection;
 
@@ -13,8 +14,8 @@ public static class ContainerBuilderExtensions
             .AsImplementedInterfaces()
             .SingleInstance();
 
-        containerBuilder.RegisterType<EntityFactory>()
-            .As<IEntityFactory>()
+        containerBuilder.RegisterType<SceneFactory>()
+            .As<ISceneFactory>()
             .InstancePerLifetimeScope();
 
         containerBuilder.RegisterAssemblyTypes(typeof(MooseEngineOptions).Assembly)

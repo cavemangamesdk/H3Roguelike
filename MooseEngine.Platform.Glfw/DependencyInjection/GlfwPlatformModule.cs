@@ -7,9 +7,12 @@ public class GlfwPlatformModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
+        builder.RegisterType<GlfwInput>()
+            .As<IInput>()
+            .SingleInstance();
 
         builder.RegisterType<GlfwWindow>()
-            .As<IWindow>()
+            .AsImplementedInterfaces()
             .SingleInstance();
     }
 }

@@ -17,6 +17,9 @@ public partial class Glfw
     public static void SwapBuffers(IntPtr windowHandlePtr) => Functions.glfwSwapBuffers(windowHandlePtr);
     public static void PollEvents() => Functions.glfwPollEvents();
 
+    // Inputs
+    public static int GetKey(IntPtr windowHandlePtr, int keycode) => Functions.glfwGetKey(windowHandlePtr, keycode);
+
     // Events
     public static Delegates.GLFWwindowclosefun SetWindowCloseCallback(IntPtr windowHandlePtr, Delegates.GLFWwindowclosefun windowclosefun) => Functions.glfwSetWindowCloseCallback(windowHandlePtr, windowclosefun);
     public static Delegates.GLFWwindowsizefun SetWindowSizeCallback(IntPtr windowHandlePtr, Delegates.GLFWwindowsizefun windowsizefun) => Functions.glfwSetWindowSizeCallback(windowHandlePtr, windowsizefun);

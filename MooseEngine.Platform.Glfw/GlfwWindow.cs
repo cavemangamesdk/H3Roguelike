@@ -2,9 +2,13 @@
 
 namespace MooseEngine.Platform.Glfw;
 
-public sealed class GlfwWindow : IWindow
+internal interface IGlfwNativeWindowHandle
 {
-    private IntPtr GlfwWindowPtr { get; set; } = IntPtr.Zero;
+    IntPtr GlfwNativeWindowHandle { get; }
+}
+
+public sealed class GlfwWindow : IWindow, IGlfwNativeWindowHandle
+{
     private EventCallbackFn? EventCallback { get; set; }
 
     private Glfw.Delegates.GLFWwindowclosefun? WindowCloseFunc { get; set; }
@@ -14,7 +18,9 @@ public sealed class GlfwWindow : IWindow
 
     public int Height => 768;
 
-    public bool ShouldClose => Glfw.WindowShouldClose(GlfwWindowPtr);
+    public bool ShouldClose => Glfw.WindowShouldClose(GlfwNativeWindowHandle);
+
+    public nint GlfwNativeWindowHandle { get; set; } = IntPtr.Zero;
 
     public void SetEventCallback(EventCallbackFn eventCallbackFn)
     {
@@ -32,21 +38,21 @@ public sealed class GlfwWindow : IWindow
         Glfw.WindowHint(GlfwConstants.GLFW_CONTEXT_VERSION_MINOR, 3);
         Glfw.WindowHint(GlfwConstants.GLFW_OPENGL_PROFILE, GlfwConstants.GLFW_OPENGL_CORE_PROFILE);
 
-        GlfwWindowPtr = Glfw.CreateWindow(1024, 768, "MooseEngine");
-        if (GlfwWindowPtr == IntPtr.Zero)
+        GlfwNativeWindowHandle = Glfw.CreateWindow(1024, 768, "MooseEngine");
+        if (GlfwNativeWindowHandle == IntPtr.Zero)
         {
             Glfw.Terminate();
             throw new Exception("Failed to create Glfw window");
         }
 
-        Glfw.MakeContextCurrent(GlfwWindowPtr);
+        Glfw.MakeContextCurrent(GlfwNativeWindowHandle);
 
         // TODO: Do something more smart than this... 
         WindowCloseFunc = WindowCloseEventFunc;
-        Glfw.SetWindowCloseCallback(GlfwWindowPtr, WindowCloseFunc);
+        Glfw.SetWindowCloseCallback(GlfwNativeWindowHandle, WindowCloseFunc);
 
         WindowResizeFunc = WindowResizeEventFunc;
-        Glfw.SetWindowSizeCallback(GlfwWindowPtr, WindowResizeFunc);
+        Glfw.SetWindowSizeCallback(GlfwNativeWindowHandle, WindowResizeFunc);
     }
 
     private void WindowResizeEventFunc(nint window, int width, int height)
@@ -61,16 +67,16 @@ public sealed class GlfwWindow : IWindow
 
     public void Update()
     {
-        Glfw.SwapBuffers(GlfwWindowPtr);
+        Glfw.SwapBuffers(GlfwNativeWindowHandle);
         Glfw.PollEvents();
     }
 
     public void Dispose()
     {
-        if (GlfwWindowPtr != IntPtr.Zero)
+        if (GlfwNativeWindowHandle != IntPtr.Zero)
         {
-            Glfw.DestroyWindow(GlfwWindowPtr);
-            GlfwWindowPtr = IntPtr.Zero;
+            Glfw.DestroyWindow(GlfwNativeWindowHandle);
+            GlfwNativeWindowHandle = IntPtr.Zero;
         }
 
         Glfw.Terminate();

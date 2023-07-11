@@ -21,6 +21,8 @@ internal sealed class OpenGLPipeline : IPipeline
     {
         Shader.Bind();
 
+        //GL.PolygonMode(GLConstants.GL_FRONT_AND_BACK, GLConstants.GL_LINE);
+
         GL.BindVertexArray(RendererId);
 
         BindBufferLayout();

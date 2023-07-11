@@ -4,6 +4,12 @@ namespace MooseEngine.Graphics.OpenGL;
 
 internal sealed class OpenGLRenderer : IRenderer
 {
+    public void Initialize()
+    {
+        GL.Enable(GLConstants.GL_BLEND);
+        GL.BlendFunc(GLConstants.GL_SRC_ALPHA, GLConstants.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
     public void Clear()
     {
         GL.Clear(GLClearMask.ColorBufferBit);

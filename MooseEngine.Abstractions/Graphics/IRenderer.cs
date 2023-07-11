@@ -2,6 +2,7 @@
 
 public interface IRenderer
 {
+    void Initialize();
     void Clear();
 
     void SetViewport(int width, int height);

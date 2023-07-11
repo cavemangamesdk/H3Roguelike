@@ -1,12 +1,14 @@
 ﻿using MooseEngine;
 using MooseEngine.Mathematics.Matrixes;
 
+[Obsolete("Please use Camera component instead!")]
 internal enum ProjectionType
 {
     Perspective,
     Orthographic
 }
 
+[Obsolete("Please use Camera component instead!")]
 internal abstract class CameraBase : ICamera
 {
     private ProjectionType projectionType;
@@ -56,6 +58,7 @@ internal abstract class CameraBase : ICamera
     }
 }
 
+[Obsolete("Please use Camera component instead!")]
 class OrthographicCamera : CameraBase
 {
     public OrthographicCamera(float size) : this(size, -1.0f, 1.0f)
